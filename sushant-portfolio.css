@@ -729,8 +729,38 @@ body {
   .timeline-grid { grid-template-columns: 1fr; }
   .matrix-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
 @media (max-width: 768px) {
-  .minimal-footer { flex-direction: column; gap: 1rem; text-align: center; }
-  .footer-content { flex-direction: column; gap: 1rem; }
+  /* Global spacing reductions */
+  .exp-edu-section, .projects-section, .skills-section, .zine-contact { 
+    padding: 60px 1.5rem; 
+  }
+  .navbar { padding: 1rem 1.5rem; }
+  
+  /* Hero */
+  .hero-split { padding-top: 120px; gap: 2.5rem; }
+  .hero-cta { flex-direction: column; width: 100%; gap: 1rem; }
+  .btn-primary, .btn-outline { width: 100%; justify-content: center; }
+  .hardware-panel { padding: 1.5rem; }
+  .status-card { padding: 0.8rem; }
+
+  /* Projects */
+  .track-selector { flex-direction: column; gap: 0.8rem; }
+  .track-btn { width: 100%; padding: 0.8rem; }
+  .project-card { padding: 1.5rem; gap: 1.5rem; }
+  .project-card h3 { font-size: 1.5rem; }
+  .project-visual { margin-top: 1rem; }
+
+  /* Matrix */
   .matrix-grid { grid-template-columns: 1fr; }
+  .matrix-card { padding: 1.5rem; }
+
+  /* Contact */
+  .contact-panel { padding: 2rem 1.5rem; }
+  .terminal-form input, .terminal-form textarea { font-size: 0.95rem; }
+  .input-line { gap: 0.5rem; }
+
+  /* Footer */
+  .minimal-footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+  .footer-content { flex-direction: column; gap: 1rem; }
 }
