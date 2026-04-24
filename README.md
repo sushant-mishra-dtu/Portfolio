@@ -33,8 +33,8 @@ A highly interactive, "Developer's Zine" style personal portfolio designed to sh
 
 ## 🚀 Track Showcase
 The portfolio divides my work into two distinct tracks:
-- **Track A (Software):** Web applications, Full-Stack projects, and UI/UX designs.
-- **Track B (Hardware & AI):** FPGA deployments, Edge AI integration, RTL architectures, and Computer Vision (ADAS).
+- **Track A (Hardware & AI):** FPGA deployments, Edge AI integration, RTL architectures, and Computer Vision (ADAS).
+- **Track B (Software):** Web applications, Full-Stack projects, and UI/UX designs.
 
 ---
 *Designed and built by Sushant Mishra.*
