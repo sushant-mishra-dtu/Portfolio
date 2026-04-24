@@ -366,18 +366,22 @@
 
             <p class="or-divider">// TRANSMIT MESSAGE //</p>
 
-            <form class="minimal-form terminal-form">
+            <form action="https://api.web3forms.com/submit" method="POST" class="minimal-form terminal-form">
+                <input type="hidden" name="access_key" value="1242f960-e135-4a0a-8157-06e16aedaf22">
+                <input type="hidden" name="subject" value="New Message from Portfolio Website">
+                <input type="checkbox" name="botcheck" id="" style="display: none;">
+
                 <div class="input-line">
                     <span class="prompt">></span>
-                    <input type="text" id="name" required placeholder="Name_">
+                    <input type="text" name="name" id="name" required placeholder="Name_">
                 </div>
                 <div class="input-line">
                     <span class="prompt">></span>
-                    <input type="email" id="email" required placeholder="Email_">
+                    <input type="email" name="email" id="email" required placeholder="Email_">
                 </div>
                 <div class="input-line">
                     <span class="prompt">></span>
-                    <textarea id="message" rows="3" required placeholder="Payload_"></textarea>
+                    <textarea name="message" id="message" rows="3" required placeholder="Payload_"></textarea>
                 </div>
                 <button type="submit" class="submit-btn-minimal hover-target">[ EXECUTE SEND ]</button>
             </form>
