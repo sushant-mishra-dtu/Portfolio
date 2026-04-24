@@ -775,14 +775,10 @@ body {
   /* --- PROJECTS UI (MOBILE) --- */
   .track-selector { 
     display: flex; 
-    flex-direction: row; 
-    overflow-x: auto; 
-    scroll-snap-type: x mandatory; 
-    padding-bottom: 1rem; 
-    -webkit-overflow-scrolling: touch; 
-    gap: 0.5rem;
+    flex-direction: column; 
+    gap: 0.8rem;
   }
-  .track-btn { flex: 0 0 80%; scroll-snap-align: start; padding: 1rem; text-align: center; white-space: nowrap; font-size: 0.9rem;}
+  .track-btn { width: 100%; padding: 1rem; text-align: center; font-size: 1rem; }
   
   .project-card { padding: 1.5rem; border-radius: 16px; gap: 1.5rem; }
   .project-card h3 { font-size: 1.4rem; line-height: 1.2; margin-top: 0.5rem;}
@@ -819,11 +815,13 @@ body {
 
   /* --- CONTACT UI (MOBILE) --- */
   .contact-panel { padding: 2rem 1.2rem; border-radius: 16px; }
-  .giant-contact-title { font-size: 2rem; text-align: left; }
+  .giant-contact-title { font-size: clamp(1.5rem, 8vw, 2rem); text-align: left; word-break: break-all; }
   .animated-email { font-size: 1rem; text-align: left; }
   .zine-socials { justify-content: flex-start; }
   .or-divider { text-align: left; }
-  .terminal-form input, .terminal-form textarea { font-size: 1rem; padding: 1rem 0; }
+  .input-line { flex-direction: row; align-items: center; gap: 0.5rem; }
+  .prompt { margin-top: 0; }
+  .terminal-form input, .terminal-form textarea { font-size: 1rem; padding: 0.8rem 0; width: 100%; }
   .submit-btn-minimal { width: 100%; border-radius: 8px; font-weight: bold; }
 
   /* --- FOOTER UI (MOBILE) --- */
