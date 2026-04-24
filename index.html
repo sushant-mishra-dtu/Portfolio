@@ -13,6 +13,8 @@
     <style>
         #webgl-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
     </style>
+    <!-- hCaptcha for spam protection -->
+    <script src="https://web3forms.com/client/script.js" async defer></script>
 </head>
 <body>
     <!-- Preloader -->
@@ -373,16 +375,20 @@
 
                 <div class="input-line">
                     <span class="prompt">></span>
-                    <input type="text" name="name" id="name" required placeholder="Name_">
+                    <input type="text" name="name" id="name" required minlength="2" placeholder="Name_">
                 </div>
                 <div class="input-line">
                     <span class="prompt">></span>
-                    <input type="email" name="email" id="email" required placeholder="Email_">
+                    <input type="email" name="email" id="email" required placeholder="Email_" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$">
                 </div>
                 <div class="input-line">
                     <span class="prompt">></span>
-                    <textarea name="message" id="message" rows="3" required placeholder="Payload_"></textarea>
+                    <textarea name="message" id="message" rows="3" required minlength="10" placeholder="Payload_"></textarea>
                 </div>
+                
+                <!-- hCaptcha spam protection -->
+                <div class="h-captcha" data-captcha="true"></div>
+                <div id="form-status" class="form-status-msg"></div>
                 <button type="submit" class="submit-btn-minimal hover-target">[ EXECUTE SEND ]</button>
             </form>
         </div>

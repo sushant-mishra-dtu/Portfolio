@@ -686,6 +686,41 @@ body {
   background: rgba(0, 240, 255, 0.1);
 }
 
+/* Form Status Messages */
+.form-status-msg {
+  font-family: monospace;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 0;
+  min-height: 1.5rem;
+  transition: all 0.3s ease;
+}
+.form-status-msg.status-error {
+  color: var(--accent-danger);
+  text-shadow: 0 0 8px rgba(244, 63, 94, 0.4);
+}
+.form-status-msg.status-success {
+  color: var(--accent-green);
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+}
+.form-status-msg.status-warning {
+  color: var(--accent-amber);
+  text-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+}
+
+/* hCaptcha Widget Styling */
+.h-captcha {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0;
+}
+
+/* Invalid input styling */
+.terminal-form input:invalid:not(:placeholder-shown),
+.terminal-form textarea:invalid:not(:placeholder-shown) {
+  border-bottom-color: var(--accent-danger);
+}
+
 /* Footer */
 .minimal-footer {
   padding: 2rem;

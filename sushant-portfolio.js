@@ -261,6 +261,31 @@ function initMatrixAnimations() {
 }
 
 // --- CONTACT FORM ---
+let lastSubmitTime = 0;
+const SUBMIT_COOLDOWN_MS = 60000; // 60 second cooldown between submissions
+
+function showFormStatus(msg, type) {
+    const statusEl = document.getElementById('form-status');
+    if (!statusEl) return;
+    statusEl.textContent = msg;
+    statusEl.className = 'form-status-msg';
+    if (type === 'error') statusEl.classList.add('status-error');
+    else if (type === 'success') statusEl.classList.add('status-success');
+    else statusEl.classList.add('status-warning');
+    
+    // Auto-clear after 5 seconds
+    setTimeout(() => {
+        statusEl.textContent = '';
+        statusEl.className = 'form-status-msg';
+    }, 5000);
+}
+
+function validateEmail(email) {
+    // Stricter email validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+}
+
 function initContact() {
     const form = document.querySelector('.terminal-form');
     if (form) {
@@ -268,6 +293,30 @@ function initContact() {
             e.preventDefault();
             const btn = form.querySelector('.submit-btn-minimal');
             const originalText = btn.innerHTML;
+
+            // --- ANTI-SPAM: Rate limiting ---
+            const now = Date.now();
+            if (now - lastSubmitTime < SUBMIT_COOLDOWN_MS) {
+                const remaining = Math.ceil((SUBMIT_COOLDOWN_MS - (now - lastSubmitTime)) / 1000);
+                showFormStatus(`⏳ COOLDOWN ACTIVE: Wait ${remaining}s before re-transmitting.`, 'warning');
+                return;
+            }
+
+            // --- ANTI-SPAM: Validate email format ---
+            const emailInput = form.querySelector('#email');
+            if (emailInput && !validateEmail(emailInput.value.trim())) {
+                showFormStatus('✗ INVALID EMAIL ADDRESS FORMAT', 'error');
+                emailInput.focus();
+                return;
+            }
+
+            // --- ANTI-SPAM: Validate minimum message length ---
+            const msgInput = form.querySelector('#message');
+            if (msgInput && msgInput.value.trim().length < 10) {
+                showFormStatus('✗ MESSAGE TOO SHORT — minimum 10 characters required.', 'error');
+                msgInput.focus();
+                return;
+            }
 
             // Show sending state
             btn.innerHTML = '[ TRANSMITTING... ]';
@@ -286,19 +335,27 @@ function initContact() {
                 const result = await response.json();
 
                 if (result.success) {
+                    lastSubmitTime = Date.now(); // Set cooldown timer
                     btn.innerHTML = '[ PAYLOAD TRANSMITTED ✓ ]';
                     btn.style.color = 'var(--accent-green)';
                     btn.style.borderColor = 'var(--accent-green)';
+                    showFormStatus('✓ MESSAGE DELIVERED SUCCESSFULLY', 'success');
                     form.reset();
+                    // Reset hCaptcha if it exists
+                    if (typeof hcaptcha !== 'undefined') {
+                        hcaptcha.reset();
+                    }
                 } else {
                     btn.innerHTML = '[ TRANSMISSION FAILED ✗ ]';
                     btn.style.color = 'var(--accent-danger)';
                     btn.style.borderColor = 'var(--accent-danger)';
+                    showFormStatus('✗ TRANSMISSION FAILED — please try again.', 'error');
                 }
             } catch (error) {
                 btn.innerHTML = '[ NETWORK ERROR ✗ ]';
                 btn.style.color = 'var(--accent-danger)';
                 btn.style.borderColor = 'var(--accent-danger)';
+                showFormStatus('✗ NETWORK ERROR — check your connection.', 'error');
             }
 
             // Reset button after 3 seconds
