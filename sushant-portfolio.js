@@ -264,17 +264,49 @@ function initMatrixAnimations() {
 function initContact() {
     const form = document.querySelector('.terminal-form');
     if (form) {
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = form.querySelector('.submit-btn-minimal');
             const originalText = btn.innerHTML;
-            btn.innerHTML = '[ PAYLOAD TRANSMITTED ]';
-            btn.style.color = 'var(--accent-cyan)';
-            btn.style.borderColor = 'var(--accent-cyan)';
-            
+
+            // Show sending state
+            btn.innerHTML = '[ TRANSMITTING... ]';
+            btn.style.color = 'var(--accent-amber)';
+            btn.style.borderColor = 'var(--accent-amber)';
+            btn.disabled = true;
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json' },
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    btn.innerHTML = '[ PAYLOAD TRANSMITTED ✓ ]';
+                    btn.style.color = 'var(--accent-green)';
+                    btn.style.borderColor = 'var(--accent-green)';
+                    form.reset();
+                } else {
+                    btn.innerHTML = '[ TRANSMISSION FAILED ✗ ]';
+                    btn.style.color = 'var(--accent-danger)';
+                    btn.style.borderColor = 'var(--accent-danger)';
+                }
+            } catch (error) {
+                btn.innerHTML = '[ NETWORK ERROR ✗ ]';
+                btn.style.color = 'var(--accent-danger)';
+                btn.style.borderColor = 'var(--accent-danger)';
+            }
+
+            // Reset button after 3 seconds
             setTimeout(() => {
-                form.reset();
                 btn.innerHTML = originalText;
+                btn.style.color = '';
+                btn.style.borderColor = '';
+                btn.disabled = false;
             }, 3000);
         });
     }
