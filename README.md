@@ -12,6 +12,7 @@ A highly interactive, "Developer's Zine" style personal portfolio designed to sh
 - **Kinetic Typography:** Split-text animations using SplitType for high-impact visual delivery.
 - **Custom Magnetic Cursor:** A stylized cursor that morphs and locks onto interactive targets.
 - **Bento-Grid Matrix:** An asymmetric skills matrix highlighting core competencies.
+- **Functional Contact Form:** Integrated with Web3Forms for serverless, direct-to-email communication.
 
 ## 🛠️ Technology Stack
 - **Structure:** Semantic HTML5
@@ -22,6 +23,7 @@ A highly interactive, "Developer's Zine" style personal portfolio designed to sh
   - [GSAP (GreenSock)](https://gsap.com/) (Core animation engine & ScrollTrigger)
   - [SplitType](https://github.com/lukePeavey/SplitType) (Text splitting for animations)
   - [FontAwesome](https://fontawesome.com/) (Icons)
+  - [Web3Forms](https://web3forms.com/) (Serverless form submissions)
 
 ## 📁 Project Structure
 - `index.html`: Main portfolio structure.
