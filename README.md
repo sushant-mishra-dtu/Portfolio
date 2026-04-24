@@ -3,7 +3,7 @@
 A highly interactive, "Developer's Zine" style personal portfolio designed to showcase my journey and projects across Electrical Engineering, Hardware Acceleration, VLSI, and Machine Learning. 
 
 ## 🌐 Live Preview
-*Check the repository settings to find the live GitHub Pages link.*
+**[View the Live Portfolio Here](https://sushant-mishra-dtu.github.io/Portfolio/)**
 
 ## ✨ Features
 - **Immersive "Zine" Aesthetic:** Moving away from standard templates into a curated, editorial-style layout.
