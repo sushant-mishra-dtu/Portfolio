@@ -280,10 +280,71 @@ function showFormStatus(msg, type) {
     }, 5000);
 }
 
-function validateEmail(email) {
-    // Stricter email validation
+// Disposable/throwaway email domain blocklist
+const DISPOSABLE_EMAIL_DOMAINS = new Set([
+    'mailinator.com','guerrillamail.com','guerrillamail.de','grr.la','guerrillamailblock.com',
+    'tempmail.com','temp-mail.org','throwaway.email','fakeinbox.com','sharklasers.com',
+    'guerrillamail.info','guerrillamail.net','yopmail.com','yopmail.fr','cool.fr.nf',
+    'jetable.fr.nf','nospam.ze.tc','nomail.xl.cx','mega.zik.dj','speed.1s.fr',
+    'courriel.fr.nf','moncourrier.fr.nf','monemail.fr.nf','monmail.fr.nf',
+    'dispostable.com','trashmail.com','trashmail.me','trashmail.net','trashmail.org',
+    'mailnesia.com','maildrop.cc','discard.email','discardmail.com','discardmail.de',
+    'mailcatch.com','mailnull.com','mailscrap.com','mailseal.de','mailtemp.info',
+    'tempail.com','tempr.email','tempmailaddress.com','throwawaymail.com',
+    'trbvn.com','10minutemail.com','10minutemail.net','minutemail.io',
+    'binkmail.com','bobmail.info','chammy.info','devnullmail.com',
+    'emailisvalid.com','emailondeck.com','emailsensei.com','fakedemail.com',
+    'filzmail.com','gishpuppy.com','harakirimail.com','imstations.com',
+    'inboxalias.com','koszmail.pl','mailcatch.com','mailexpire.com',
+    'mailforspam.com','mailimate.com','mailmoat.com','mailnator.com',
+    'mailsac.com','mailslurp.com','mailzilla.com','meltmail.com',
+    'mintemail.com','mt2015.com','mytemp.email','nobulk.com',
+    'noclickemail.com','nogmailspam.info','notsomuch.com','ownmail.net',
+    'purcell.email','putthisinyouremail.com','reallymymail.com','recode.me',
+    'regbypass.com','rmqkr.net','royal.net','safersignup.de','safetymail.info',
+    'sendspamhere.com','sharedmailbox.org','sharklasers.com','shieldedmail.com',
+    'soodonims.com','spambob.net','spamfree24.org','spamgourmet.com',
+    'spamhole.com','spamify.com','spaml.de','spamtrap.ro','superrito.com',
+    'suremail.info','teleworm.us','tempe4mail.com','tempinbox.com',
+    'tempmaildemo.com','tempomail.fr','temporaryemail.net','temporarymail.org',
+    'thankyou2010.com','thisisnotmyrealemail.com','trashemail.de','trashymail.com',
+    'trashymail.net','wegwerfmail.de','wegwerfmail.net','wetrainbayarea.com',
+    'wh4f.org','whyspam.me','wilemail.com','willselfdestruct.com',
+    'yep.it','yogamaven.com','zetmail.com','zoemail.org',
+    'guerrillamail.biz','spam4.me','grr.la','maildu.de','trashmail.io',
+    'mohmal.com','getnada.com','emailfake.com','crazymailing.com','armyspy.com',
+    'dayrep.com','einrot.com','fleckens.hu','gustr.com','jourrapide.com',
+    'rhyta.com','superrito.com','teleworm.us'
+]);
+
+function validateEmailFormat(email) {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
+}
+
+function isDisposableEmail(email) {
+    const domain = email.split('@')[1]?.toLowerCase();
+    return DISPOSABLE_EMAIL_DOMAINS.has(domain);
+}
+
+async function verifyEmailDomain(email) {
+    // Check if the email domain has valid MX (mail) records
+    // Uses Cloudflare's free DNS-over-HTTPS API — no API key needed
+    const domain = email.split('@')[1];
+    if (!domain) return false;
+
+    try {
+        const response = await fetch(
+            `https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(domain)}&type=MX`,
+            { headers: { 'Accept': 'application/dns-json' } }
+        );
+        const data = await response.json();
+        // Status 0 = NOERROR, and Answer array should contain MX records
+        return data.Status === 0 && data.Answer && data.Answer.length > 0;
+    } catch {
+        // If DNS check fails (network issue), allow submission as a fallback
+        return true;
+    }
 }
 
 function initContact() {
@@ -302,10 +363,28 @@ function initContact() {
                 return;
             }
 
-            // --- ANTI-SPAM: Validate email format ---
             const emailInput = form.querySelector('#email');
-            if (emailInput && !validateEmail(emailInput.value.trim())) {
+            const emailValue = emailInput ? emailInput.value.trim() : '';
+
+            // --- ANTI-SPAM: Validate email format ---
+            if (!validateEmailFormat(emailValue)) {
                 showFormStatus('✗ INVALID EMAIL ADDRESS FORMAT', 'error');
+                emailInput.focus();
+                return;
+            }
+
+            // --- ANTI-SPAM: Block disposable/throwaway emails ---
+            if (isDisposableEmail(emailValue)) {
+                showFormStatus('✗ DISPOSABLE EMAIL DETECTED — use a real address.', 'error');
+                emailInput.focus();
+                return;
+            }
+
+            // --- ANTI-SPAM: Verify email domain has mail servers ---
+            showFormStatus('⏳ VERIFYING EMAIL DOMAIN...', 'warning');
+            const domainValid = await verifyEmailDomain(emailValue);
+            if (!domainValid) {
+                showFormStatus('✗ EMAIL DOMAIN INVALID — no mail server found.', 'error');
                 emailInput.focus();
                 return;
             }
