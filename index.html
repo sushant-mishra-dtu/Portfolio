@@ -3,417 +3,358 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sushant Mishra — SDF Spatial Command Center | Hardware & VLSI Engineer | ML Engineer">
-    <title>SM// SPATIAL COMMAND CENTER</title>
+    <title>Sushant Mishra | Electrical Engineering &amp; VLSI</title>
+    <meta name="description" content="Sushant Mishra, electrical engineering student at Delhi Technological University building hardware accelerators and edge-AI systems.">
+    <meta property="og:title" content="Sushant Mishra | Electrical Engineering &amp; VLSI">
+    <meta property="og:description" content="Electrical engineering student building hardware accelerators and edge-AI systems.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23121216'/%3E%3Ctext x='16' y='21' font-family='monospace' font-size='13' font-weight='600' fill='%23EDEEF2' text-anchor='middle'%3ESM%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="sushant-portfolio.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <!-- WebGL Canvas for Three.js -->
-    <style>
-        #webgl-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
-    </style>
     <!-- hCaptcha for spam protection -->
     <script src="https://web3forms.com/client/script.js" async defer></script>
 </head>
 <body>
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="loader-text">INITIALIZING SYSTEM...</div>
-        <div class="loader-progress"></div>
+
+<!-- Navigation -->
+<header class="nav" id="nav">
+    <div class="nav-inner">
+        <a href="#home" class="brand">Sushant Mishra</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="navPanel">
+            <span></span><span></span>
+        </button>
+        <nav class="nav-panel" id="navPanel">
+            <ul class="nav-links">
+                <li><a href="#experience" data-nav="experience">Experience</a></li>
+                <li><a href="#projects" data-nav="projects">Projects</a></li>
+                <li><a href="#skills" data-nav="skills">Skills</a></li>
+                <li><a href="#contact" data-nav="contact">Contact</a></li>
+            </ul>
+        </nav>
     </div>
+</header>
 
-    <!-- Custom Cursor -->
-    <div class="custom-cursor"></div>
-
-    <!-- WebGL Background -->
-    <canvas id="webgl-bg"></canvas>
-
-    <!-- Blueprint Grid Background -->
-    <div class="blueprint-grid"></div>
-
-    <!-- Grain Overlay -->
-    <div class="grain-overlay"></div>
-
-    <!-- CRT Scanline Overlay -->
-    <div class="crt-overlay"></div>
-
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-text">SM_></span>
-            </div>
-            <div class="nav-controls">
-                <div class="nav-toggle hover-target">
-                    <span></span>
-                    <span></span>
+<main>
+<!-- Hero -->
+<section id="home">
+    <div class="wrap">
+        <div class="hero-grid">
+            <div class="hero">
+                <h1><span class="h1-line">Sushant Mishra</span></h1>
+                <p class="role" data-hero>Electrical engineering student building hardware accelerators and edge-AI systems</p>
+                <p class="subtext" data-hero>B.Tech at Delhi Technological University. I design RTL pipelines and run machine learning on FPGAs and microcontrollers, close to the silicon.</p>
+                <div class="hero-ctas" data-hero>
+                    <a href="#projects" class="btn btn-primary">
+                        View projects
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </a>
+                    <a href="CV_Sushant.pdf" class="btn btn-ghost" download="Sushant_Mishra_CV.pdf">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+                        Download resume
+                    </a>
                 </div>
             </div>
-        </div>
-        <div class="scroll-progress"></div>
-    </nav>
 
-    <!-- Navigation Overlay -->
-    <div class="nav-overlay">
-        <ul class="overlay-menu">
-            <li><a href="#home" class="overlay-link">HOME</a></li>
-            <li><a href="#experience" class="overlay-link">EXPERIENCE</a></li>
-            <li><a href="#projects" class="overlay-link">PROJECTS</a></li>
-            <li><a href="#skills" class="overlay-link">SKILLS</a></li>
-            <li><a href="#contact" class="overlay-link">CONTACT</a></li>
-        </ul>
-        <div class="overlay-socials">
-            <a href="https://github.com/sushant-mishra-dtu" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/sushant-mishra-dtu/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <div class="profile-card" data-hero>
+                <div class="pc-head">
+                    <div class="pc-avatar" aria-hidden="true">SM</div>
+                    <div>
+                        <div class="name">Sushant Mishra</div>
+                        <div class="sub">B.Tech EE, 2025-2029</div>
+                    </div>
+                </div>
+                <div class="pc-divider"></div>
+                <div class="pc-meta">
+                    <div class="pc-row">
+                        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6.3-7-11a7 7 0 0114 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+                        <span>Ghaziabad, India</span>
+                    </div>
+                    <div class="pc-row">
+                        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+                        <a href="mailto:sushant.arh@gmail.com">sushant.arh@gmail.com</a>
+                    </div>
+                    <div class="pc-row">
+                        <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.09.68-.22.68-.49 0-.24-.01-.88-.01-1.72-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.3 9.3 0 015 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.59.69.49A10.03 10.03 0 0022 12.25C22 6.58 17.52 2 12 2z"/></svg></span>
+                        <a href="https://github.com/sushant-mishra-dtu" target="_blank" rel="noopener">github.com/sushant-mishra-dtu</a>
+                    </div>
+                    <div class="pc-row">
+                        <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></span>
+                        <a href="https://www.linkedin.com/in/sushant-mishra-dtu/" target="_blank" rel="noopener">linkedin.com/in/sushant-mishra-dtu</a>
+                    </div>
+                </div>
+                <div class="stat-block">
+                    <div class="stat-num"><span class="count" data-target="57.17" data-decimals="2">57.17</span><span class="unit">µs</span></div>
+                    <div class="stat-caption">FPGA per-frame inference latency</div>
+                </div>
+            </div>
         </div>
     </div>
+</section>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-split">
-        <div class="hero-left">
-            <h1 class="hero-title-outlined scrub-text split-target">SUSHANT<br>MISHRA</h1>
-            <div class="hero-subtitle-stack">
-                <p class="hero-line neon-text">Aspiring Tech Innovator</p>
-                <p class="hero-line sub-line">Electrical Engineering Student | Hardware & VLSI Enthusiast | Machine Learning Engineer</p>
-            </div>
-            <p class="hero-desc">Electrical Engineering student at Delhi Technological University with a deep passion for semiconductor engineering, VLSI design, and hardware innovation. Experienced in rapid prototyping with Arduino and FPGA, and excited by the intersection of AI/ML with chip design and intelligent hardware acceleration. Seeking to contribute cutting-edge hardware solutions at hackathons and beyond.</p>
-            <div class="hero-cta">
-                <a href="#projects" class="btn-primary hover-target">View My Work <i class="fas fa-arrow-down"></i></a>
-                <a href="CV_Sushant.pdf" download="Sushant_Mishra_CV.pdf" class="btn-outline hover-target">Download Resume <i class="fas fa-file-download"></i></a>
-            </div>
-        </div>
-        <div class="hero-right">
-            <div class="status-stack hardware-panel">
-                <div class="panel-header">SYS_STATUS</div>
-                <div class="status-card">
-                    <span class="status-icon"><i class="fas fa-map-marker-alt"></i></span>
-                    <span class="status-text">Ghaziabad, India</span>
-                </div>
-                <div class="status-card">
-                    <span class="status-icon"><i class="fas fa-phone-alt"></i></span>
-                    <span class="status-text">9667463549</span>
-                </div>
-                <div class="status-card">
-                    <span class="status-icon"><i class="fas fa-envelope"></i></span>
-                    <span class="status-text">sushant.arh@gmail.com</span>
-                </div>
-                <div class="status-card highlight-card">
-                    <span class="status-icon"><i class="fas fa-microchip"></i></span>
-                    <span class="status-text">STATUS: ONLINE & READY</span>
+<!-- Experience & Education -->
+<section id="experience" class="section-pad">
+    <div class="wrap">
+        <h2 class="section-title" data-sec>Experience and education</h2>
+        <p class="section-lead" data-sec>Hands-on engineering alongside a foundation in electrical and computer systems.</p>
+
+        <div class="two-col">
+            <div data-sec>
+                <div class="col-head">Experience</div>
+                <div class="entry" data-item>
+                    <div class="entry-top">
+                        <h3>Full-stack web developer intern</h3>
+                        <span class="date">Jun-Jul 2025</span>
+                    </div>
+                    <div class="org">Houston International Foods Pvt. Ltd. · Mumbai</div>
+                    <p>Built and deployed web applications for the IT department, recommended by the organization for future work in website development.</p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Experience & Education Section -->
-    <section id="experience" class="exp-edu-section">
-        <div class="section-container">
-            <h2 class="section-heading outlined-heading split-target">LOG</h2>
-            
-            <div class="timeline-grid">
-                <!-- Experience -->
-                <div class="timeline-column">
-                    <h3 class="column-title"><i class="fas fa-briefcase"></i> EXPERIENCE</h3>
-                    <div class="timeline-item">
-                        <div class="timeline-dot-neon"></div>
-                        <div class="item-header">
-                            <h4>Full-Stack Web Developer Intern</h4>
-                            <span class="item-date">Jun 2025 - Jul 2025</span>
-                        </div>
-                        <div class="item-company">Houston International Foods Pvt. Ltd. | Mumbai, Maharashtra</div>
-                        <ul class="item-details">
-                            <li>Developed and deployed web applications for the Information Technology department.</li>
-                            <li>Demonstrated strong problem-solving skills, punctuality, and collaborative teamwork.</li>
-                            <li>Recommended by the organization for future opportunities in website development.</li>
-                        </ul>
+            <div data-sec>
+                <div class="col-head">Education</div>
+                <div class="entry" data-item>
+                    <div class="entry-top">
+                        <h3>B.Tech, Electrical Engineering</h3>
+                        <span class="date">2025-2029</span>
                     </div>
+                    <div class="org">Delhi Technological University</div>
+                    <p>Focus on VLSI, FPGA design, and edge-AI hardware.</p>
                 </div>
-
-                <!-- Education -->
-                <div class="timeline-column">
-                    <h3 class="column-title"><i class="fas fa-graduation-cap"></i> EDUCATION</h3>
-                    <div class="timeline-item">
-                        <div class="timeline-dot-neon"></div>
-                        <div class="item-header">
-                            <h4>Delhi Technological University (Formerly DCE)</h4>
-                            <span class="item-date">Jul 2025 - Jul 2029</span>
-                        </div>
-                        <div class="item-company">B.Tech Electrical Engineering | New Delhi</div>
+                <div class="entry" data-item>
+                    <div class="entry-top">
+                        <h3>Secondary and senior secondary</h3>
+                        <span class="date">2012-2024</span>
                     </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-dot-neon"></div>
-                        <div class="item-header">
-                            <h4>Kendriya Vidyalaya</h4>
-                            <span class="item-date">Mar 2012 - Mar 2024</span>
-                        </div>
-                        <div class="item-company">Secondary & Senior Secondary Education</div>
-                    </div>
+                    <div class="org">Kendriya Vidyalaya</div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Projects Section (Two Tracks) -->
-    <section id="projects" class="projects-section">
-        <h2 class="section-heading outlined-heading split-target text-center">MODULES</h2>
-        
-        <div class="track-selector">
-            <button class="track-btn active hover-target" data-track="track-hardware">TRACK A: Hardware & AI</button>
-            <button class="track-btn hover-target" data-track="track-software">TRACK B: Software</button>
-        </div>
+<!-- Projects -->
+<section id="projects" class="section-pad">
+    <div class="wrap">
+        <h2 class="section-title" data-sec>Projects</h2>
+        <p class="section-lead" data-sec>Hardware acceleration, computer vision, and full-stack software.</p>
 
-        <div class="projects-container">
-            
-            <!-- TRACK B: Hardware & AI -->
-            <div class="project-track active" id="track-hardware">
-                <!-- Project 1 -->
-                <div class="project-card hardware-theme">
-                    <div class="project-content">
-                        <div class="project-badge">FPGA Edge AI</div>
-                        <h3>
-                            <a href="https://github.com/sushant-mishra-dtu/FPGA-Accelerated-Edge-Intelligence-System" target="_blank" class="hover-target" style="color: inherit; text-decoration: none;">
-                                FPGA-Accelerated Edge Intelligence System <i class="fab fa-github" style="font-size: 0.8em; margin-left: 8px;"></i>
-                            </a>
-                        </h3>
-                        <div class="project-meta">SemiXthon 2026 (Digital Design & VLSI Track)</div>
-                        <p>A Tiny Edge AI Accelerator performing real-time anomaly detection and pattern recognition at the edge with zero cloud dependency.</p>
-                        <p class="highlight-performance"><strong>Performance:</strong> Engineered a custom RTL processing pipeline achieving a verified per-frame latency of 57.17 µs (87x faster than the 5ms target).</p>
-                        <div class="tech-tags">
-                            <span>PYNQ-Z2 (Zynq-7020)</span><span>ESP32-S3</span><span>VHDL</span><span>C (ESP-IDF)</span><span>UART 921600 baud</span>
-                        </div>
-                    </div>
-                    <div class="project-visual">
-                        <div class="wireframe-container">
-                            <img src="FPGA_edge_accelerator_using_uart_flowchart.png" alt="Hardware block architecture diagram showing UART pipeline between ESP32 and FPGA" class="placeholder-img">
-                            <div class="overlay-scanline"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="project-card hardware-theme">
-                    <div class="project-content">
-                        <div class="project-badge">Automotive Tech</div>
-                        <h3>
-                            <a href="https://github.com/sushant-mishra-dtu/ADAS" target="_blank" class="hover-target" style="color: inherit; text-decoration: none;">
-                                ADAS (Advanced Driver Assistance Systems) <i class="fab fa-github" style="font-size: 0.8em; margin-left: 8px;"></i>
-                            </a>
-                        </h3>
-                        <p>Real-time data processing, hardware sensor integration, and machine learning models for computer vision and object detection.</p>
-                        <div class="tech-tags">
-                            <span>Computer Vision</span><span>Sensor Integration</span><span>Machine Learning</span>
-                        </div>
-                    </div>
-                    <div class="project-visual">
-                        <div class="wireframe-container">
-                            <img src="adas-demo.png" alt="ADAS Heads Up Display processing a chaotic street scene with computer vision bounding boxes" class="placeholder-img">
-                            <div class="overlay-scanline"></div>
-                        </div>
-                    </div>
-                </div>
-
-
+        <!-- Featured -->
+        <div class="featured" data-sec>
+            <div class="featured-media">
+                <img id="featuredImg" src="FPGA_edge_accelerator_using_uart_flowchart.png" alt="Hardware block architecture diagram showing the UART pipeline between the ESP32 and FPGA" loading="lazy">
             </div>
-
-            <!-- TRACK A: Software -->
-            <div class="project-track" id="track-software">
-                <!-- Project 1 -->
-                <div class="project-card software-theme">
-                    <div class="project-content">
-                        <div class="project-badge">Hackathon Finalist</div>
-                        <h3>AM Hacks 2.0 Web Application</h3>
-                        <div class="project-meta">AssetMerkle IGDTUW, New Delhi (February 2025)</div>
-                        <p>Ranked in Top 20 out of all teams in a competitive 48-hour offline hackathon. Served as sole technical lead for Team SJJ.</p>
-                        <p>Architected and built the entire prototype web app during a major strategic pivot, focusing on an exclusively software-based frontend prototype to emphasize rapid UI/UX development.</p>
-                        <ul class="project-bullets">
-                            <li>Demonstrated rapid development and clean execution.</li>
-                            <li>Excelled in high-pressure problem-solving.</li>
-                        </ul>
-                        <div class="tech-tags">
-                            <span>Frontend Architecture</span><span>UI/UX</span><span>Rapid Prototyping</span>
-                        </div>
+            <div class="featured-body">
+                <span class="featured-tag">Hardware · SemiXthon 2026</span>
+                <h3>FPGA-accelerated edge intelligence system</h3>
+                <p>A custom RTL pipeline on the PYNQ-Z2 running per-frame anomaly detection in 57.17 µs, streaming results to an ESP32-S3 over UART with zero cloud dependency.</p>
+                <div class="featured-metrics">
+                    <div class="fm-item">
+                        <div class="fm-num"><span class="count" data-target="87" data-decimals="0">87</span>×</div>
+                        <div class="fm-lbl">Faster than the 5 ms target</div>
                     </div>
-                    <div class="project-visual">
-                        <div class="wireframe-container">
-                            <img src="AM-hacks-portfolio.jpg" alt="Screenshot of the web app prototype and a photo of Team SJJ at AM Hacks 2.0" class="placeholder-img">
-                            <div class="overlay-scanline"></div>
-                        </div>
+                    <div class="fm-item">
+                        <div class="fm-num"><span class="count" data-target="921.6" data-decimals="1">921.6</span> kbaud</div>
+                        <div class="fm-lbl">UART link to the ESP32-S3</div>
                     </div>
                 </div>
-
-                <!-- Project 2 -->
-                <div class="project-card software-theme">
-                    <div class="project-content">
-                        <div class="project-badge">Responsive UI</div>
-                        <h3>
-                            <a href="https://github.com/sushant-mishra-dtu/Food-Brand-Demo" target="_blank" class="hover-target" style="color: inherit; text-decoration: none;">
-                                Food-Brand-Demo <i class="fab fa-github" style="font-size: 0.8em; margin-left: 8px;"></i>
-                            </a>
-                        </h3>
-                        <p>A responsive multi-brand food website demo showcasing themed pages for North Indian cuisine, street food, burgers, and customizable lunch thalis. Designed with modern UI elements and vibrant animations.</p>
-                        <div class="tech-tags">
-                            <span>HTML</span><span>CSS</span><span>Responsive Design</span><span>Animation</span>
-                        </div>
-                    </div>
-                    <div class="project-visual">
-                        <div class="wireframe-container">
-                            <img src="food_brand_demo.png" alt="Multi-brand Food Website Demo" class="placeholder-img">
-                            <div class="overlay-scanline"></div>
-                        </div>
-                    </div>
+                <div class="stack-tags">
+                    <span class="chip">PYNQ-Z2</span>
+                    <span class="chip">Zynq-7020</span>
+                    <span class="chip">VHDL</span>
+                    <span class="chip">ESP32-S3</span>
+                    <span class="chip">C (ESP-IDF)</span>
                 </div>
-
-                <!-- Project 3 -->
-                <div class="project-card software-theme">
-                    <div class="project-content">
-                        <div class="project-badge">Healthcare Tech</div>
-                        <h3>
-                            <a href="https://github.com/sushant-mishra-dtu/HealthBridge-website" target="_blank" class="hover-target" style="color: inherit; text-decoration: none;">
-                                HealthBridge <i class="fab fa-github" style="font-size: 0.8em; margin-left: 8px;"></i>
-                            </a>
-                        </h3>
-                        <p>A technology initiative focusing on bridging the gap in rural healthcare. The platform prioritizes resilience and proactivity to address four core pillars of the rural healthcare crisis: Accessibility, Reliability, Timeliness, and Awareness.</p>
-                        <div class="tech-tags">
-                            <span>Web Development</span><span>Social Impact</span><span>Rural Healthcare</span>
-                        </div>
-                    </div>
-                    <div class="project-visual">
-                        <div class="wireframe-container">
-                            <img src="Health-bridge-demo.png" alt="HealthBridge Website Demo" class="placeholder-img">
-                            <div class="overlay-scanline"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Skills Matrix Section -->
-    <section id="skills" class="skills-section">
-        <h2 class="section-heading outlined-heading split-target text-center">MATRIX</h2>
-        <div class="matrix-grid">
-            
-            <div class="matrix-card">
-                <div class="card-glow"></div>
-                <i class="fas fa-microchip card-icon"></i>
-                <h3>Hardware Platforms</h3>
-                <div class="matrix-tags">
-                    <span>Arduino</span><span>FPGA</span><span>ESP32</span>
-                </div>
-            </div>
-
-            <div class="matrix-card">
-                <div class="card-glow"></div>
-                <i class="fas fa-memory card-icon"></i>
-                <h3>Semiconductor & VLSI</h3>
-                <div class="matrix-tags">
-                    <span>Chip Design</span><span>Logic Gate Architecture</span><span>Transistor-level</span><span>VLSI Design</span><span>VHDL/RTL</span>
-                </div>
-            </div>
-
-            <div class="matrix-card">
-                <div class="card-glow"></div>
-                <i class="fas fa-brain card-icon"></i>
-                <h3>AI / ML</h3>
-                <div class="matrix-tags">
-                    <span>Hardware Acceleration</span><span>Layout Optimization</span><span>ML Fundamentals</span><span>TinyML/Edge AI</span>
-                </div>
-            </div>
-
-            <div class="matrix-card">
-                <div class="card-glow"></div>
-                <i class="fas fa-laptop-code card-icon"></i>
-                <h3>Software Engineering</h3>
-                <div class="matrix-tags">
-                    <span>Backend Systems</span><span>API Design</span><span>Data Flow</span>
-                </div>
-            </div>
-
-            <div class="matrix-card">
-                <div class="card-glow"></div>
-                <i class="fas fa-network-wired card-icon"></i>
-                <h3>Core Concepts</h3>
-                <div class="matrix-tags">
-                    <span>Digital Logic Design</span><span>Digital Electronics</span><span>Rapid Prototyping</span><span>DSA</span>
-                </div>
-            </div>
-
-            <div class="matrix-card highlight-matrix">
-                <div class="card-glow pulse"></div>
-                <i class="fas fa-crosshairs card-icon"></i>
-                <h3>Areas of Interest</h3>
-                <div class="matrix-tags">
-                    <span class="glow-tag">Semiconductor Eng</span>
-                    <span class="glow-tag">VLSI & Chip Design</span>
-                    <span class="glow-tag">AI/ML in Hardware</span>
-                    <span class="glow-tag">Embedded Systems</span>
-                    <span class="glow-tag">FPGA Prototyping</span>
-                    <span class="glow-tag">Hardware Hackathons</span>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="zine-contact">
-        <div class="contact-container contact-panel">
-            <h2 class="giant-contact-title">INITIATE CONTACT</h2>
-            <a href="mailto:sushant.arh@gmail.com" class="animated-email neon-text">sushant.arh@gmail.com</a>
-            
-            <div class="zine-socials">
-                <a href="https://github.com/sushant-mishra-dtu" target="_blank" class="mag-link hover-target">GITHUB_</a>
-                <a href="https://www.linkedin.com/in/sushant-mishra-dtu/" target="_blank" class="mag-link hover-target">LINKEDIN_</a>
-            </div>
-
-            <p class="or-divider">// TRANSMIT MESSAGE //</p>
-
-            <form action="https://api.web3forms.com/submit" method="POST" class="minimal-form terminal-form">
-                <input type="hidden" name="access_key" value="1242f960-e135-4a0a-8157-06e16aedaf22">
-                <input type="hidden" name="subject" value="New Message from Portfolio Website">
-                <input type="checkbox" name="botcheck" id="" style="display: none;">
-
-                <div class="input-line">
-                    <span class="prompt">></span>
-                    <input type="text" name="name" id="name" required minlength="2" placeholder="Name_">
-                </div>
-                <div class="input-line">
-                    <span class="prompt">></span>
-                    <input type="email" name="email" id="email" required placeholder="Email_" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$">
-                </div>
-                <div class="input-line">
-                    <span class="prompt">></span>
-                    <textarea name="message" id="message" rows="3" required minlength="10" placeholder="Payload_"></textarea>
-                </div>
-                
-                <!-- hCaptcha spam protection -->
-                <div class="h-captcha" data-captcha="true"></div>
-                <div id="form-status" class="form-status-msg"></div>
-                <button type="submit" class="submit-btn-minimal hover-target">[ EXECUTE SEND ]</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="minimal-footer">
-        <div class="footer-content">
-            <p>&copy; 2026 Designed and built by Sushant.</p>
-            <div class="footer-links">
-                <a href="https://github.com/sushant-mishra-dtu" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/sushant-mishra-dtu/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a class="repo-link" href="https://github.com/sushant-mishra-dtu/FPGA-Accelerated-Edge-Intelligence-System" target="_blank" rel="noopener">
+                    View on GitHub
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+                </a>
             </div>
         </div>
-        <button id="back-to-top" class="back-to-top hover-target">TOP <i class="fas fa-angle-up"></i></button>
-    </footer>
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://unpkg.com/split-type"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="sushant-three.js"></script>
-    <script src="sushant-portfolio.js"></script>
+        <!-- Grid -->
+        <div class="proj-grid">
+            <a class="proj-card" data-card href="https://github.com/sushant-mishra-dtu/ADAS" target="_blank" rel="noopener">
+                <div class="proj-media"><img src="adas-demo.png" alt="ADAS heads-up display processing a street scene with computer vision bounding boxes" loading="lazy"></div>
+                <div class="proj-info">
+                    <span class="cat-tag hw">Hardware</span>
+                    <h3>ADAS
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+                    </h3>
+                    <p>Advanced driver assistance combining computer vision, sensor integration, and machine learning for real-time object detection.</p>
+                </div>
+            </a>
+
+            <article class="proj-card" data-card>
+                <div class="proj-media"><img src="AM-hacks-portfolio.jpg" alt="The AM Hacks 2.0 web app prototype and Team SJJ at the hackathon" loading="lazy"></div>
+                <div class="proj-info">
+                    <span class="cat-tag">Software</span>
+                    <h3>AM Hacks 2.0 web app</h3>
+                    <p>Top 20 finalist at a 48-hour offline hackathon. Sole technical lead, building the full prototype through a mid-event pivot.</p>
+                </div>
+            </article>
+
+            <a class="proj-card" data-card href="https://github.com/sushant-mishra-dtu/Food-Brand-Demo" target="_blank" rel="noopener">
+                <div class="proj-media"><img src="food_brand_demo.png" alt="Multi-brand food website demo" loading="lazy"></div>
+                <div class="proj-info">
+                    <span class="cat-tag">Software</span>
+                    <h3>Food-Brand-Demo
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+                    </h3>
+                    <p>Responsive multi-brand food website with themed pages for four cuisine lines and animated UI throughout.</p>
+                </div>
+            </a>
+
+            <a class="proj-card" data-card href="https://github.com/sushant-mishra-dtu/HealthBridge-website" target="_blank" rel="noopener">
+                <div class="proj-media"><img src="Health-bridge-demo.png" alt="HealthBridge website demo" loading="lazy"></div>
+                <div class="proj-info">
+                    <span class="cat-tag">Software</span>
+                    <h3>HealthBridge
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+                    </h3>
+                    <p>A rural healthcare platform focused on accessibility, reliability, timeliness, and awareness.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Skills -->
+<section id="skills" class="section-pad">
+    <div class="wrap">
+        <h2 class="section-title" data-sec>Skills</h2>
+        <p class="section-lead" data-sec>From RTL and silicon to the software that runs on top.</p>
+
+        <div class="skills-grid">
+            <div class="skill-group" data-sec>
+                <h3>Hardware and VLSI</h3>
+                <div class="gdesc">Digital design, prototyping, and embedded hardware.</div>
+                <div class="chips">
+                    <span class="skill-chip" data-chip>Arduino</span>
+                    <span class="skill-chip" data-chip>FPGA</span>
+                    <span class="skill-chip" data-chip>ESP32</span>
+                    <span class="skill-chip" data-chip>VHDL / RTL</span>
+                    <span class="skill-chip" data-chip>Chip design</span>
+                    <span class="skill-chip" data-chip>Logic gate architecture</span>
+                </div>
+            </div>
+
+            <div class="skill-group" data-sec>
+                <h3>AI and ML</h3>
+                <div class="gdesc">Machine learning where it meets the hardware.</div>
+                <div class="chips">
+                    <span class="skill-chip" data-chip>Hardware acceleration</span>
+                    <span class="skill-chip" data-chip>TinyML</span>
+                    <span class="skill-chip" data-chip>Edge AI</span>
+                    <span class="skill-chip" data-chip>ML fundamentals</span>
+                </div>
+            </div>
+
+            <div class="skill-group" data-sec>
+                <h3>Software</h3>
+                <div class="gdesc">Full-stack development and services.</div>
+                <div class="chips">
+                    <span class="skill-chip" data-chip>Backend systems</span>
+                    <span class="skill-chip" data-chip>API design</span>
+                    <span class="skill-chip" data-chip>Responsive UI</span>
+                </div>
+            </div>
+
+            <div class="skill-group" data-sec>
+                <h3>Core</h3>
+                <div class="gdesc">Fundamentals underpinning the rest.</div>
+                <div class="chips">
+                    <span class="skill-chip" data-chip>Digital logic design</span>
+                    <span class="skill-chip" data-chip>Digital electronics</span>
+                    <span class="skill-chip" data-chip>Data structures &amp; algorithms</span>
+                    <span class="skill-chip" data-chip>Rapid prototyping</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="section-pad">
+    <div class="wrap">
+        <div class="contact-grid">
+            <div class="contact-left">
+                <h2 class="section-title" data-sec>Get in touch</h2>
+                <p class="clead" data-sec>Open to internships and hardware or edge-AI roles. The fastest way to reach me is email.</p>
+                <div class="contact-links" data-sec>
+                    <a class="contact-link" href="mailto:sushant.arh@gmail.com">
+                        <span class="cl-label"><span class="ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>Email</span>
+                        <span class="cl-val">sushant.arh@gmail.com</span>
+                    </a>
+                    <a class="contact-link" href="https://github.com/sushant-mishra-dtu" target="_blank" rel="noopener">
+                        <span class="cl-label"><span class="ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.09.68-.22.68-.49 0-.24-.01-.88-.01-1.72-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.3 9.3 0 015 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.59.69.49A10.03 10.03 0 0022 12.25C22 6.58 17.52 2 12 2z"/></svg></span>GitHub</span>
+                        <span class="arrow"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+                    </a>
+                    <a class="contact-link" href="https://www.linkedin.com/in/sushant-mishra-dtu/" target="_blank" rel="noopener">
+                        <span class="cl-label"><span class="ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg></span>LinkedIn</span>
+                        <span class="arrow"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+                    </a>
+                </div>
+            </div>
+
+            <div data-sec>
+                <form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="contactForm" novalidate>
+                    <input type="hidden" name="access_key" value="1242f960-e135-4a0a-8157-06e16aedaf22">
+                    <input type="hidden" name="subject" value="New Message from Portfolio Website">
+                    <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" aria-hidden="true">
+
+                    <div class="field" id="f-name">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required minlength="2" autocomplete="name" aria-describedby="err-name">
+                        <span class="err" id="err-name">Please enter your name.</span>
+                    </div>
+                    <div class="field" id="f-email">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required autocomplete="email" aria-describedby="err-email">
+                        <span class="err" id="err-email">Please enter a valid email address.</span>
+                    </div>
+                    <div class="field" id="f-message">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="4" required minlength="10" aria-describedby="err-message"></textarea>
+                        <span class="err" id="err-message">Please write a message of at least 10 characters.</span>
+                    </div>
+
+                    <!-- hCaptcha spam protection -->
+                    <div class="h-captcha" data-captcha="true"></div>
+
+                    <div class="form-row">
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            Send message
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                        </button>
+                        <span class="form-status" id="formStatus" role="status" aria-live="polite"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</main>
+
+<!-- Footer -->
+<footer>
+    <div class="wrap">
+        <div class="footer-inner">
+            <span class="copy">© 2026 Designed and built by Sushant Mishra</span>
+            <div class="fl">
+                <a href="mailto:sushant.arh@gmail.com">Email</a>
+                <a href="https://github.com/sushant-mishra-dtu" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://www.linkedin.com/in/sushant-mishra-dtu/" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="#home">Back to top</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="sushant-portfolio.js"></script>
 </body>
 </html>
