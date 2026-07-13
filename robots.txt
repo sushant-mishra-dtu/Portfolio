@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sushant-mishra-dtu.github.io/Portfolio/sitemap.xml

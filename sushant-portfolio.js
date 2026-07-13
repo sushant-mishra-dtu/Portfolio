@@ -30,6 +30,64 @@
         setInterval(tick, 1000);
     })();
 
+    /* ================= LIVE GITHUB SIGNAL ================= */
+    (function github() {
+        var panel = document.getElementById('ghPanel');
+        if (!panel) return;
+        var USER = 'sushant-mishra-dtu';
+
+        function set(id, val) { var el = document.getElementById(id); if (el) el.textContent = val; }
+
+        function relTime(iso) {
+            var d = new Date(iso), s = Math.floor((Date.now() - d) / 1000);
+            if (isNaN(s)) return '';
+            if (s < 60) return 'just now';
+            var m = Math.floor(s / 60); if (m < 60) return m + 'm ago';
+            var h = Math.floor(m / 60); if (h < 24) return h + 'h ago';
+            var days = Math.floor(h / 24); if (days < 30) return days + 'd ago';
+            var mo = Math.floor(days / 30); if (mo < 12) return mo + 'mo ago';
+            return Math.floor(mo / 12) + 'y ago';
+        }
+
+        function ok(r) { return r.ok ? r.json() : Promise.reject(r.status); }
+
+        Promise.all([
+            fetch('https://api.github.com/users/' + USER).then(ok),
+            fetch('https://api.github.com/users/' + USER + '/repos?per_page=100&sort=pushed').then(ok)
+        ]).then(function (res) {
+            var u = res[0], repos = Array.isArray(res[1]) ? res[1] : [];
+            set('ghRepos', u.public_repos != null ? u.public_repos : repos.length);
+            set('ghFollowers', u.followers != null ? u.followers : 0);
+            set('ghStars', repos.reduce(function (a, r) { return a + (r.stargazers_count || 0); }, 0));
+
+            var owned = repos.filter(function (r) { return !r.fork; });
+            var latest = (owned.length ? owned : repos).slice().sort(function (a, b) {
+                return new Date(b.pushed_at) - new Date(a.pushed_at);
+            })[0];
+            set('ghPush', latest ? (latest.name + ' · ' + relTime(latest.pushed_at)) : '—');
+
+            var langs = {};
+            repos.forEach(function (r) { if (r.language) langs[r.language] = (langs[r.language] || 0) + 1; });
+            var top = Object.keys(langs).sort(function (a, b) { return langs[b] - langs[a]; }).slice(0, 4);
+            var wrap = document.getElementById('ghLangs');
+            if (wrap && top.length) {
+                wrap.innerHTML = '';
+                top.forEach(function (l) {
+                    var s = document.createElement('span');
+                    s.className = 'gh-lang mono';
+                    s.textContent = l + ' · ' + langs[l];
+                    wrap.appendChild(s);
+                });
+            }
+            panel.classList.add('gh-live');
+        }).catch(function () {
+            panel.classList.add('gh-offline');
+            set('ghPush', 'signal unavailable');
+            var wrap = document.getElementById('ghLangs');
+            if (wrap) wrap.innerHTML = '<span class="gh-lang mono">github · offline</span>';
+        });
+    })();
+
     /* ================= MENU OVERLAY + NAV ================= */
     var body = document.body;
     var nav = document.getElementById('nav');
@@ -65,7 +123,7 @@
     }
 
     // active section -> aria-current on menu links
-    var navSections = ['home', 'projects', 'experience', 'skills', 'contact']
+    var navSections = ['home', 'about', 'projects', 'experience', 'skills', 'contact']
         .map(function (id) { return document.getElementById(id); }).filter(Boolean);
     function setActive(id) {
         menuLinks.forEach(function (a) {
@@ -147,7 +205,7 @@
         if (!hasGsap || reduce) return;
 
         // section blocks reveal
-        ['#projects', '#experience', '#skills', '#contact'].forEach(function (sel) {
+        ['#about', '#projects', '#experience', '#skills', '#contact'].forEach(function (sel) {
             var sec = document.querySelector(sel);
             if (!sec) return;
             var els = sec.querySelectorAll('[data-sec]');
