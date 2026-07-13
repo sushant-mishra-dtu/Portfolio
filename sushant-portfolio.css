@@ -40,6 +40,24 @@ a:hover { color: #7BD5E7; }
 
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
 
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+.skip-link {
+  position: fixed;
+  top: 10px; left: 10px;
+  z-index: 200;
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--r-btn);
+  padding: 10px 16px;
+  font-size: 14px; font-weight: 500;
+  transform: translateY(-200%);
+  transition: transform 0.2s var(--ease);
+}
+.skip-link:focus { transform: translateY(0); color: var(--text); }
+
 section { position: relative; scroll-margin-top: 68px; }
 img { max-width: 100%; }
 
@@ -145,7 +163,7 @@ header.nav.open .nav-toggle span:nth-child(2) { transform: translateY(-3.25px) r
 .btn-ghost:hover { transform: translateY(-1px); border-color: var(--border-hover); }
 
 /* ============ SECTION SCAFFOLD ============ */
-.section-pad { padding: 120px 0; }
+.section-pad { padding: 112px 0 132px; }
 .section-title { font-size: clamp(30px, 5vw, 54px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.04; margin-bottom: 14px; }
 .section-lead { color: var(--text-dim); font-size: 16px; max-width: 560px; margin-bottom: 64px; }
 
@@ -173,7 +191,7 @@ header.nav.open .nav-toggle span:nth-child(2) { transform: translateY(-3.25px) r
 
 .hero-side { display: flex; flex-direction: column; gap: 26px; border-left: 1px solid var(--border); padding-left: 32px; }
 .hero-stat { }
-.stat-num { font-family: 'Geist Mono', 'SF Mono', ui-monospace, monospace; font-size: clamp(40px, 5vw, 56px); font-weight: 500; letter-spacing: -0.03em; color: var(--accent); line-height: 1; display: flex; align-items: baseline; gap: 6px; }
+.stat-num { font-family: 'Geist Mono', 'SF Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; font-size: clamp(40px, 5vw, 56px); font-weight: 500; letter-spacing: -0.03em; color: var(--accent); line-height: 1; display: flex; align-items: baseline; gap: 6px; }
 .stat-num .unit { font-size: 0.5em; color: var(--text); }
 .stat-caption { font-size: 13.5px; color: var(--text-dim); margin-top: 12px; max-width: 260px; line-height: 1.5; }
 .hero-meta { display: flex; flex-direction: column; gap: 12px; padding-top: 24px; border-top: 1px solid var(--border); }
@@ -201,11 +219,12 @@ header.nav.open .nav-toggle span:nth-child(2) { transform: translateY(-3.25px) r
   border-radius: var(--r-card);
   overflow: hidden;
   display: flex; flex-direction: column;
+  box-shadow: 0 30px 70px -45px rgba(0, 0, 0, 0.75);
 }
 .panel-featured { width: min(940px, 90vw); flex-direction: row; }
 .panel-featured .panel-media { flex: 1; min-height: 100%; border-right: 1px solid var(--border); border-bottom: none; }
 .panel-featured .panel-body { flex: 1; }
-.panel-media { overflow: hidden; height: 260px; border-bottom: 1px solid var(--border); position: relative; }
+.panel-media { overflow: hidden; height: 260px; border-bottom: 1px solid var(--border); position: relative; background: var(--surface-2); }
 .panel-media img { width: 100%; height: 100%; object-fit: cover; display: block; will-change: transform; }
 .panel-body { padding: 30px 32px 34px; display: flex; flex-direction: column; justify-content: center; }
 .panel-tag { align-self: flex-start; font-family: 'Geist Mono', 'SF Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.04em; color: var(--text-dim); border: 1px solid var(--border); border-radius: var(--r-tag); padding: 4px 9px; margin-bottom: 16px; }
@@ -213,7 +232,7 @@ header.nav.open .nav-toggle span:nth-child(2) { transform: translateY(-3.25px) r
 .panel-body h3 { font-size: clamp(20px, 2.4vw, 28px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.12; margin-bottom: 14px; }
 .panel-body p { font-size: 14.5px; color: var(--text-dim); margin-bottom: 22px; }
 .panel-metrics { display: flex; gap: 26px; margin-bottom: 22px; flex-wrap: wrap; }
-.metric-num { font-family: 'Geist Mono', 'SF Mono', ui-monospace, monospace; font-size: 19px; font-weight: 500; color: var(--text); letter-spacing: -0.02em; }
+.metric-num { font-family: 'Geist Mono', 'SF Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; font-size: 19px; font-weight: 500; color: var(--text); letter-spacing: -0.02em; }
 .metric-lbl { font-size: 11.5px; color: var(--text-dim); margin-top: 3px; }
 .panel-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
 .chip { font-family: 'Geist Mono', 'SF Mono', ui-monospace, monospace; font-size: 11px; color: var(--text-dim); background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-tag); padding: 4px 9px; }
@@ -257,13 +276,13 @@ header.nav.open .nav-toggle span:nth-child(2) { transform: translateY(-3.25px) r
   transition: opacity 0.3s var(--ease);
   pointer-events: none;
 }
-.cap-card:hover { border-color: var(--border-hover); }
+.cap-card:hover { border-color: var(--border-hover); box-shadow: 0 24px 60px -40px rgba(0, 0, 0, 0.7); }
 .cap-card:hover::before { opacity: 1; }
 .cap-lead { background: linear-gradient(155deg, var(--surface-2), var(--surface)); }
 .cap-card h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 6px; position: relative; }
 .cap-desc { font-size: 13px; color: var(--text-dim); margin-bottom: 20px; position: relative; }
 .chips { display: flex; flex-wrap: wrap; gap: 9px; position: relative; }
-.skill-chip { font-family: 'Geist Mono', 'SF Mono', ui-monospace, monospace; font-size: 12.5px; color: var(--text); background: rgba(10,10,12,0.5); border: 1px solid var(--border); border-radius: 7px; padding: 7px 12px; transition: border-color 0.2s var(--ease); }
+.skill-chip { font-family: 'Geist Mono', 'SF Mono', ui-monospace, monospace; font-size: 12.5px; color: var(--text); background: rgba(10,10,12,0.5); border: 1px solid var(--border); border-radius: var(--r-tag); padding: 7px 12px; transition: border-color 0.2s var(--ease); }
 .skill-chip:hover { border-color: var(--border-hover); }
 
 /* ============ CONTACT ============ */
@@ -348,10 +367,6 @@ footer { border-top: 1px solid var(--border); padding: 40px 0; }
   .panel-featured .panel-media { border-right: none; border-bottom: 1px solid var(--border); }
   .panel-media { height: 200px; }
 }
-
-/* ============ MOTION-READY GATING ============ */
-/* JS adds .motion class only when it will animate; until then content is visible */
-.js-hide { }
 
 /* ============ REDUCED MOTION ============ */
 @media (prefers-reduced-motion: reduce) {
