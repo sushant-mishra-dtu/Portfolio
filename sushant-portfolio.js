@@ -4,7 +4,93 @@
     var hasGsap = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
     if (hasGsap) gsap.registerPlugin(ScrollTrigger);
 
-    /* ---------- MOBILE NAV ---------- */
+    /* ================= CIRCUIT-MESH BACKGROUND ================= */
+    (function mesh() {
+        var canvas = document.getElementById('mesh');
+        if (!canvas) return;
+        var ctx = canvas.getContext('2d');
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        var w = 0, h = 0, nodes = [], raf = null, running = false;
+        var mouse = { x: -9999, y: -9999 };
+        var LINK_DIST = 150;
+
+        function resize() {
+            w = window.innerWidth;
+            h = window.innerHeight;
+            canvas.width = w * dpr;
+            canvas.height = h * dpr;
+            canvas.style.width = w + 'px';
+            canvas.style.height = h + 'px';
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            var target = Math.round((w * h) / 26000);
+            target = Math.max(24, Math.min(target, 70));
+            nodes = [];
+            for (var i = 0; i < target; i++) {
+                nodes.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    vx: (Math.random() - 0.5) * 0.22,
+                    vy: (Math.random() - 0.5) * 0.22
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, w, h);
+            for (var i = 0; i < nodes.length; i++) {
+                var n = nodes[i];
+                n.x += n.vx; n.y += n.vy;
+                if (n.x < 0 || n.x > w) n.vx *= -1;
+                if (n.y < 0 || n.y > h) n.vy *= -1;
+
+                // gentle cursor attraction
+                var dxm = mouse.x - n.x, dym = mouse.y - n.y;
+                var dm = Math.sqrt(dxm * dxm + dym * dym);
+                if (dm < 180 && dm > 0.1) {
+                    n.x += (dxm / dm) * 0.35;
+                    n.y += (dym / dm) * 0.35;
+                }
+            }
+            // links
+            for (var a = 0; a < nodes.length; a++) {
+                for (var b = a + 1; b < nodes.length; b++) {
+                    var dx = nodes[a].x - nodes[b].x, dy = nodes[a].y - nodes[b].y;
+                    var d = Math.sqrt(dx * dx + dy * dy);
+                    if (d < LINK_DIST) {
+                        var al = (1 - d / LINK_DIST) * 0.16;
+                        ctx.strokeStyle = 'rgba(76, 194, 217, ' + al.toFixed(3) + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[a].x, nodes[a].y);
+                        ctx.lineTo(nodes[b].x, nodes[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            // nodes
+            for (var k = 0; k < nodes.length; k++) {
+                ctx.fillStyle = 'rgba(76, 194, 217, 0.5)';
+                ctx.beginPath();
+                ctx.arc(nodes[k].x, nodes[k].y, 1.4, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function loop() { draw(); raf = requestAnimationFrame(loop); }
+        function start() { if (!running) { running = true; loop(); } }
+        function stop() { running = false; if (raf) cancelAnimationFrame(raf); raf = null; }
+
+        resize();
+        if (reduce) { draw(); return; } // one static frame, no animation
+        start();
+
+        window.addEventListener('resize', function () { dpr = Math.min(window.devicePixelRatio || 1, 2); resize(); });
+        window.addEventListener('pointermove', function (e) { mouse.x = e.clientX; mouse.y = e.clientY; });
+        window.addEventListener('pointerleave', function () { mouse.x = -9999; mouse.y = -9999; });
+        document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+    })();
+
+    /* ================= MOBILE NAV ================= */
     var nav = document.getElementById('nav');
     var toggle = document.getElementById('navToggle');
     if (toggle) {
@@ -14,9 +100,9 @@
         });
     }
 
-    /* ---------- NAV: scrolled border + active section ---------- */
+    /* ================= NAV: scrolled + active section ================= */
     var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
-    var sections = ['experience', 'projects', 'skills', 'contact']
+    var sections = ['projects', 'experience', 'skills', 'contact']
         .map(function (id) { return document.getElementById(id); })
         .filter(Boolean);
 
@@ -30,7 +116,6 @@
         });
     });
 
-    // sentinel-based scrolled state (no scroll listener)
     var sentinel = document.createElement('div');
     sentinel.style.cssText = 'position:absolute;top:8px;left:0;width:1px;height:1px;pointer-events:none;';
     document.body.prepend(sentinel);
@@ -38,14 +123,13 @@
         nav.classList.toggle('scrolled', !entries[0].isIntersecting);
     }).observe(sentinel);
 
-    // active-section highlight
     sections.forEach(function (s) {
         new IntersectionObserver(function (entries) {
             entries.forEach(function (en) { if (en.isIntersecting) setActive(en.target.id); });
         }, { rootMargin: '-45% 0px -50% 0px' }).observe(s);
     });
 
-    /* ---------- DIRECTIONAL BUTTON FILL ---------- */
+    /* ================= DIRECTIONAL BUTTON FILL ================= */
     document.querySelectorAll('.btn-primary').forEach(function (btn) {
         btn.addEventListener('mouseenter', function (e) {
             var r = btn.getBoundingClientRect();
@@ -53,7 +137,18 @@
         });
     });
 
-    /* ---------- COUNT-UPS ---------- */
+    /* ================= SKILLS SPOTLIGHT (pointer-tracked) ================= */
+    if (!('ontouchstart' in window)) {
+        document.querySelectorAll('.cap-card').forEach(function (card) {
+            card.addEventListener('pointermove', function (e) {
+                var r = card.getBoundingClientRect();
+                card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+                card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+            });
+        });
+    }
+
+    /* ================= COUNT-UPS ================= */
     function runCount(el) {
         var target = parseFloat(el.dataset.target);
         var decimals = parseInt(el.dataset.decimals, 10) || 0;
@@ -64,97 +159,108 @@
             onUpdate: function () { el.textContent = obj.v.toFixed(decimals); }
         });
     }
-    var counts = Array.prototype.slice.call(document.querySelectorAll('.count'));
 
-    /* ---------- MOTION ---------- */
-    // Content is visible by default (no CSS hiding). GSAP hides then reveals,
-    // so a failed CDN or disabled JS still shows the full page.
+    /* ================= MOTION ================= */
     if (!reduce && hasGsap) {
 
-        counts.forEach(function (el) {
-            el.textContent = (0).toFixed(parseInt(el.dataset.decimals, 10) || 0);
-            ScrollTrigger.create({
-                trigger: el, start: 'top 88%', once: true,
-                onEnter: function () { runCount(el); }
-            });
-        });
-
-        // hero: masked line reveal for the name, fade-up stagger for the rest
-        var h1Line = document.querySelector('.h1-line');
+        // hero: masked line reveal + fade-up stagger + stat count-up
+        var lines = gsap.utils.toArray('.hero-title .line-inner');
         var heroEls = gsap.utils.toArray('[data-hero]');
-        gsap.set(h1Line, { yPercent: 110 });
+        gsap.set(lines, { yPercent: 115 });
         gsap.set(heroEls, { opacity: 0, y: 22 });
-        gsap.timeline({ defaults: { ease: 'power3.out' } })
-            .to(h1Line, { yPercent: 0, duration: 0.9, ease: 'power4.out' })
-            .to(heroEls, { opacity: 1, y: 0, duration: 0.7, stagger: 0.09 }, '-=0.55');
+        var heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        heroTl.to(lines, { yPercent: 0, duration: 1, ease: 'power4.out', stagger: 0.09 })
+              .to(heroEls, { opacity: 1, y: 0, duration: 0.7, stagger: 0.09 }, '-=0.6')
+              .add(function () { document.querySelectorAll('#home .count').forEach(runCount); }, '-=0.3');
 
-        // section headings + blocks: fade-up per section, children staggered
+        // section headings + blocks reveal
         gsap.utils.toArray('section.section-pad').forEach(function (sec) {
             var els = sec.querySelectorAll('[data-sec]');
             if (!els.length) return;
             gsap.set(els, { opacity: 0, y: 24 });
             ScrollTrigger.create({
-                trigger: sec, start: 'top 80%', once: true,
-                onEnter: function () {
-                    gsap.to(els, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.08 });
-                }
+                trigger: sec, start: 'top 78%', once: true,
+                onEnter: function () { gsap.to(els, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.08 }); }
             });
         });
 
-        // experience entries: cascade within their column
-        gsap.utils.toArray('[data-item]').forEach(function (item, i) {
-            gsap.set(item, { opacity: 0, y: 16 });
-            ScrollTrigger.create({
-                trigger: item, start: 'top 88%', once: true,
-                onEnter: function () {
-                    gsap.to(item, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out', delay: (i % 3) * 0.06 });
-                }
-            });
+        // timeline items + line draw
+        var tlItems = gsap.utils.toArray('[data-item]');
+        gsap.set(tlItems, { opacity: 0, y: 18 });
+        ScrollTrigger.create({
+            trigger: '.timeline', start: 'top 75%', once: true,
+            onEnter: function () { gsap.to(tlItems, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.12 }); }
         });
-
-        // project cards: each animates on its own entry, image settles from a zoom
-        gsap.utils.toArray('[data-card]').forEach(function (card) {
-            var img = card.querySelector('img');
-            gsap.set(card, { opacity: 0, y: 28 });
-            gsap.set(img, { scale: 1.14 });
-            ScrollTrigger.create({
-                trigger: card, start: 'top 88%', once: true,
-                onEnter: function () {
-                    gsap.to(card, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' });
-                    gsap.to(img, { scale: 1, duration: 1.1, ease: 'power3.out' });
-                }
-            });
-        });
-
-        // featured image: settle-in zoom + gentle scrub parallax
-        var fImg = document.getElementById('featuredImg');
-        if (fImg) {
-            gsap.set(fImg, { scale: 1.12 });
-            gsap.to(fImg, {
-                scale: 1.06, duration: 1.2, ease: 'power3.out',
-                scrollTrigger: { trigger: '.featured', start: 'top 80%', once: true }
-            });
-            gsap.to(fImg, {
-                yPercent: 6, ease: 'none',
-                scrollTrigger: { trigger: '.featured', start: 'top bottom', end: 'bottom top', scrub: 0.6 }
+        var linePath = document.querySelector('.timeline-line path');
+        if (linePath) {
+            gsap.set(linePath, { strokeDasharray: 1, strokeDashoffset: 1 });
+            gsap.to(linePath, {
+                strokeDashoffset: 0, ease: 'none',
+                scrollTrigger: { trigger: '.timeline', start: 'top 70%', end: 'bottom 75%', scrub: 0.6 }
             });
         }
 
-        // skill chips: micro-cascade per group
-        gsap.utils.toArray('.skill-group').forEach(function (group) {
-            var chips = group.querySelectorAll('[data-chip]');
+        // skills cards + chips cascade
+        gsap.utils.toArray('.cap-card').forEach(function (card) {
+            var chips = card.querySelectorAll('[data-chip]');
+            gsap.set(card, { opacity: 0, y: 26 });
             gsap.set(chips, { opacity: 0, y: 10 });
             ScrollTrigger.create({
-                trigger: group, start: 'top 88%', once: true,
+                trigger: card, start: 'top 85%', once: true,
                 onEnter: function () {
-                    gsap.to(chips, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', stagger: 0.035 });
+                    gsap.to(card, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' });
+                    gsap.to(chips, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', stagger: 0.035, delay: 0.1 });
                 }
             });
         });
 
+        // project count-ups fire once when the section is reached
+        ScrollTrigger.create({
+            trigger: '#projects', start: 'top 70%', once: true,
+            onEnter: function () { document.querySelectorAll('#projects .count').forEach(runCount); }
+        });
+
+        // horizontal project pan (desktop + motion only, cleans up on resize)
+        var mm = gsap.matchMedia();
+        mm.add('(min-width: 721px)', function () {
+            var pin = document.getElementById('projectsPin');
+            var track = document.getElementById('projectsTrack');
+            var progress = document.getElementById('projProgress');
+            if (!pin || !track) return;
+
+            var getDistance = function () { return Math.max(0, track.scrollWidth - window.innerWidth + 32); };
+
+            var tween = gsap.to(track, {
+                x: function () { return -getDistance(); },
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: pin,
+                    start: 'top top',
+                    end: function () { return '+=' + getDistance(); },
+                    pin: true,
+                    scrub: 1,
+                    invalidateOnRefresh: true,
+                    onUpdate: function (self) { if (progress) progress.style.width = (self.progress * 100).toFixed(1) + '%'; }
+                }
+            });
+
+            // parallax each panel image slightly as it pans
+            var imgs = gsap.utils.toArray('.panel-media img');
+            imgs.forEach(function (img) {
+                gsap.fromTo(img, { scale: 1.12 }, {
+                    scale: 1, ease: 'none',
+                    scrollTrigger: { trigger: img.closest('.panel'), containerAnimation: tween, start: 'left right', end: 'right left', scrub: true }
+                });
+            });
+
+            return function () { /* cleanup handled by matchMedia revert */ };
+        });
+
+        // refresh once images have loaded so pin distance is correct
+        window.addEventListener('load', function () { ScrollTrigger.refresh(); });
     } else {
-        // reduced motion or no GSAP: everything stays visible, counts show final values
-        counts.forEach(function (el) { runCount(el); });
+        // reduced motion or no GSAP: show final stat values, no hidden state
+        document.querySelectorAll('.count').forEach(runCount);
     }
 
     /* ================= CONTACT FORM ================= */
@@ -238,16 +344,13 @@
         ).then(function (response) {
             return response.json();
         }).then(function (data) {
-            // Status 0 = NOERROR, and Answer array should contain MX records
             return data.Status === 0 && data.Answer && data.Answer.length > 0;
         }).catch(function () {
-            // If the DNS check fails (network issue), allow submission as a fallback
-            return true;
+            return true; // network fallback: allow
         });
     }
 
     if (form) {
-        // clear error state as the user corrects a field
         form.querySelectorAll('input, textarea').forEach(function (el) {
             el.addEventListener('input', function () {
                 var field = el.closest('.field');
@@ -259,7 +362,6 @@
             e.preventDefault();
             var originalHtml = submitBtn.innerHTML;
 
-            // rate limiting
             var now = Date.now();
             if (now - lastSubmitTime < SUBMIT_COOLDOWN_MS) {
                 var remaining = Math.ceil((SUBMIT_COOLDOWN_MS - (now - lastSubmitTime)) / 1000);
@@ -285,7 +387,6 @@
                 return;
             }
 
-            // block disposable/throwaway emails
             if (isDisposableEmail(emailValue)) {
                 setFieldInvalid('f-email', true);
                 showFormStatus('Please use a permanent email address.', 'error');
@@ -293,7 +394,6 @@
                 return;
             }
 
-            // verify the email domain has mail servers
             showFormStatus('Checking email address...');
             var domainValid = await verifyEmailDomain(emailValue);
             if (!domainValid) {
