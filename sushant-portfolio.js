@@ -104,6 +104,17 @@
         });
     });
 
+    /* ================= CAPABILITY-CARD SPOTLIGHT ================= */
+    if (!('ontouchstart' in window) && !reduce) {
+        document.querySelectorAll('.cap-card').forEach(function (card) {
+            card.addEventListener('pointermove', function (e) {
+                var r = card.getBoundingClientRect();
+                card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+                card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+            });
+        });
+    }
+
     /* ================= COUNT-UPS ================= */
     function runCount(el) {
         var target = parseFloat(el.dataset.target);
