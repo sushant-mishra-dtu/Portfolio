@@ -9,9 +9,8 @@
 
     /* ================= LIVE CLOCK (Ghaziabad / IST) ================= */
     (function clock() {
-        var clockEl = document.getElementById('clock');
-        var menuClockEl = document.getElementById('menuClock');
-        if (!clockEl && !menuClockEl) return;
+        var els = document.querySelectorAll('[data-clock]');
+        if (!els.length) return;
         var fmt;
         try {
             fmt = new Intl.DateTimeFormat('en-GB', {
@@ -23,8 +22,7 @@
         }
         function tick() {
             var t = fmt.format(new Date());
-            if (clockEl) clockEl.textContent = t;
-            if (menuClockEl) menuClockEl.textContent = t;
+            els.forEach(function (el) { el.textContent = t; });
         }
         tick();
         setInterval(tick, 1000);
@@ -195,8 +193,7 @@
         gsap.set(heroEls, { opacity: 0, y: 24 });
         var tl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
         tl.to(lines, { yPercent: 0, duration: 1.05, ease: 'power4.out', stagger: 0.1 })
-          .to(heroEls, { opacity: 1, y: 0, duration: 0.7, stagger: 0.08 }, '-=0.55')
-          .add(function () { document.querySelectorAll('#home .count').forEach(runCount); }, '-=0.35');
+          .to(heroEls, { opacity: 1, y: 0, duration: 0.7, stagger: 0.08 }, '-=0.55');
         return tl;
     }
 
@@ -226,30 +223,29 @@
             }).to(mWords, { color: '#EDEDE8', ease: 'none', stagger: 0.6 });
         }
 
-        // projects: stacked-card cascade (desktop) + progress bar
+        // projects: hero-parallax tilted rows (desktop only)
         var mm = gsap.matchMedia();
         mm.add('(min-width: 768px)', function () {
-            var cards = gsap.utils.toArray('.stack-card');
-            cards.forEach(function (card, i) {
-                if (i === cards.length - 1) return;
-                var inner = card.querySelector('.card-inner');
-                if (!inner) return;
-                gsap.to(inner, {
-                    scale: 0.94, ease: 'none', transformOrigin: '50% 0%',
-                    scrollTrigger: { trigger: cards[i + 1], start: 'top bottom', end: 'top top', scrub: true }
-                });
+            var hp = document.getElementById('hp');
+            if (!hp) return;
+            hp.classList.add('hp-active');
+            var tl = gsap.timeline({
+                scrollTrigger: { trigger: hp, start: 'top bottom', end: 'bottom top', scrub: 1 }
             });
-            var prog = document.getElementById('stackProgress');
-            ScrollTrigger.create({
-                trigger: '#projects', start: 'top top', end: 'bottom bottom',
-                onUpdate: function (self) { if (prog) prog.style.width = (self.progress * 100).toFixed(1) + '%'; }
-            });
+            // plane un-tilts and fades in over the first stretch
+            tl.fromTo('#hpPlane',
+                { rotateX: 12, rotateZ: 10, y: 0, opacity: 0.4 },
+                { rotateX: 0, rotateZ: 0, y: 0, opacity: 1, ease: 'none', duration: 0.28 }, 0);
+            // rows drift in opposite directions across the whole pass
+            tl.fromTo('.hp-row-a', { x: 0 }, { x: 170, ease: 'none', duration: 1 }, 0);
+            tl.fromTo('.hp-row-b', { x: 0 }, { x: -170, ease: 'none', duration: 1 }, 0);
+            return function () { hp.classList.remove('hp-active'); };
         });
 
-        // project metric count-ups
+        // flagship telemetry count-ups (Selected Work)
         ScrollTrigger.create({
-            trigger: '#projects', start: 'top 70%', once: true,
-            onEnter: function () { document.querySelectorAll('#projects .count').forEach(runCount); }
+            trigger: '.work-stats', start: 'top 82%', once: true,
+            onEnter: function () { document.querySelectorAll('.work-stats .count').forEach(runCount); }
         });
 
         // timeline: items fade + SVG line draw
