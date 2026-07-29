@@ -1,0 +1,127 @@
+\documentclass[letterpaper,10pt]{article}
+
+% Required packages
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+% Set margins
+\geometry{left=0.5in, top=0.5in, right=0.5in, bottom=0.5in}
+
+% Formatting for section headers
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Custom commands for formatting
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+%-------------------------------------------
+%%%%%%  CV STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    {\Huge \textbf{Sushant Mishra}} \\ \vspace{5pt}
+    Ghaziabad, India $|$ +91 9667463549 $|$ \href{mailto:sushant.arh@gmail.com}{\underline{sushant.arh@gmail.com}} $|$ 
+    \href{https://github.com/BHUKKADDD}{\underline{GitHub}} $|$ \href{https://linkedin.com/in/}{\underline{LinkedIn}} \\ \vspace{5pt}
+    \textbf{Aspiring Tech Innovator $|$ Electrical Engineering Student $|$ Hardware \& VLSI Enthusiast}
+\end{center}
+\vspace{-10pt}
+\begin{center}
+    \small{Electrical Engineering student at Delhi Technological University with a deep passion for semiconductor engineering, VLSI design, and hardware innovation. Experienced in rapid prototyping with Arduino and FPGA, and excited by the intersection of AI/ML with chip design and intelligent hardware acceleration. Proven ability to bridge the gap between custom hardware RTL architectures and full-stack software integration.}
+\end{center}
+
+%-----------EDUCATION-----------
+\section{Education}
+  \begin{itemize}[leftmargin=0.15in, label={}]
+    \resumeSubheading
+      {Delhi Technological University (Formerly DCE)}{New Delhi, India}
+      {B.Tech Electrical Engineering}{Jul 2025 -- Jul 2029}
+    \resumeSubheading
+      {Kendriya Vidyalaya}{India}
+      {Secondary \& Senior Secondary Education}{Mar 2012 -- Mar 2024}
+  \end{itemize}
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \begin{itemize}[leftmargin=0.15in, label={}]
+    \resumeSubheading
+      {Houston International Foods Pvt. Ltd.}{Mumbai, Maharashtra}
+      {Full-Stack Web Developer Intern}{Jun 2025 -- Jul 2025}
+      \begin{itemize}[leftmargin=0.15in, label={\small$\bullet$}]
+        \resumeItem{Developed and deployed web applications for the Information Technology department, streamlining internal data flows.}
+        \resumeItem{Executed frontend-backend architecture design, demonstrating strong problem-solving skills and clean code execution.}
+        \resumeItem{Recommended by the organization for future opportunities in website development due to punctual delivery and collaborative teamwork.}
+      \end{itemize}
+  \end{itemize}
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \begin{itemize}[leftmargin=0.15in, label={}]
+      \resumeProjectHeading
+          {\textbf{FPGA-Accelerated Edge Intelligence System} $|$ \emph{PYNQ-Z2 (Zynq-7020), ESP32-S3, VHDL, C, UART}}{SemiXthon 2026}
+          \begin{itemize}[leftmargin=0.15in, label={\small$\bullet$}]
+            \resumeItem{Engineered a Tiny Edge AI Accelerator capable of real-time anomaly detection and pattern recognition at the edge with zero cloud dependency.}
+            \resumeItem{Designed a custom RTL processing pipeline (Threshold Detector, FSM Classifier, Pattern Matcher) that achieved a verified per-frame latency of 57.17 $\mu$s, operating 87x faster than the required 5ms target.}
+            \resumeItem{Established a high-speed (921600 baud) UART communication pipeline between the ESP32 sensor host and the FPGA processing core.}
+          \end{itemize}
+      \vspace{-2pt}
+      \resumeProjectHeading
+          {\textbf{ARUNA -- Aerial Real-time Unsupervised Neural Anomaly Detector} $|$ \emph{Python}}{}
+          \begin{itemize}[leftmargin=0.15in, label={\small$\bullet$}]
+            \resumeItem{Unsupervised neural anomaly detection on aerial imagery, running in real time.}
+          \end{itemize}
+      \vspace{-2pt}
+      \resumeProjectHeading
+          {\textbf{Real-Time Conversational AI Commentator} $|$ \emph{Python}}{}
+          \begin{itemize}[leftmargin=0.15in, label={\small$\bullet$}]
+            \resumeItem{Autonomous sports commentator with real-time data integration, tool-augmented stats retrieval, and full-duplex voice interaction.}
+          \end{itemize}
+      \vspace{-2pt}
+      \resumeProjectHeading
+          {\textbf{Prediction Playground} $|$ \emph{[FILL IN]}}{}
+          \begin{itemize}[leftmargin=0.15in, label={\small$\bullet$}]
+            \resumeItem{[FILL IN]}
+          \end{itemize}
+      \vspace{-2pt}
+      \resumeProjectHeading
+          {\textbf{Advanced Driver Assistance Systems (ADAS)} $|$ \emph{Python, OpenCV, PyTorch, C++, Sensors}}{}
+          \begin{itemize}[leftmargin=0.15in, label={\small$\bullet$}]
+            \resumeItem{Architected an integrated ADAS pipeline focused on real-time data processing and computer vision.}
+            \resumeItem{Fused hardware sensor data with machine learning object detection models to evaluate real-time environmental conditions and reduce processing latency.}
+          \end{itemize}
+      \vspace{-2pt}
+      \resumeProjectHeading
+          {\textbf{Hand-Gesture Recognition via Custom RTL Accelerator} $|$ \emph{FPGA, Verilog/VHDL, Python}}{}
+          \begin{itemize}[leftmargin=0.15in, label={\small$\bullet$}]
+            \resumeItem{Designed and implemented a Custom Register-Transfer Level (RTL) architecture specifically optimized for edge AI logic.}
+            \resumeItem{Shifted traditional software-based AI recognition to a dedicated hardware accelerator, drastically reducing power consumption and inference time.}
+          \end{itemize}
+    \end{itemize}
+\end{document}
