@@ -8,7 +8,9 @@ A single-page portfolio for an electrical engineering student building hardware 
 ## ✨ Highlights
 - **Boot-sequence preloader** and a mask-reveal hero with an animated `57.17µs` inference-latency counter.
 - **Subject Profile** with a mono spec sheet, a **live GitHub signal** (repos, followers, stars, last push, top languages via the public API), and a commendations record.
-- **Pinned word-by-word manifesto**, a **stacked-card project cascade**, and an SVG line-draw **timeline**.
+- **Pinned word-by-word manifesto**, a **nine-card project cascade** across three counter-drifting rows, and an SVG line-draw **timeline**.
+- Projects with no photograph get a **hand-drawn inline SVG schematic** of their actual architecture (VRF bank placement, LSTM-autoencoder telemetry pipeline, evidence fusion, audio mux, ML pipeline, gated roadmap) rather than a stock placeholder.
+- Corner **status flags** on cards that need them: build state (`PLANNING PHASE`) and live deployments (`LIVE`).
 - **Live IST clock** (`GHAZIABAD, IN`) and an oscilloscope waveform as ambient live data.
 - **Floating pill nav** with a fullscreen menu overlay (hamburger morphs to X).
 - **Web3Forms** contact pipeline with client-side validation, disposable-email + Cloudflare MX checks, a submission cooldown, and hCaptcha.
@@ -29,6 +31,7 @@ A single-page portfolio for an electrical engineering student building hardware 
 - `404.html` — branded not-found page
 - `robots.txt`, `sitemap.xml` — SEO
 - Image assets + `CV_Sushant.pdf`
+- `main.tex` — LaTeX source for the resume
 
 ---
 *Designed and built by Sushant Mishra.*

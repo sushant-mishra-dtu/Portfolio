@@ -30,7 +30,7 @@
       "email": "mailto:sushant.arh@gmail.com",
       "alumniOf": { "@type": "CollegeOrUniversity", "name": "Delhi Technological University" },
       "address": { "@type": "PostalAddress", "addressLocality": "Ghaziabad", "addressCountry": "IN" },
-      "knowsAbout": ["FPGA", "VLSI", "RTL Design", "Edge AI", "TinyML", "Embedded Systems", "Digital Logic Design"],
+      "knowsAbout": ["FPGA", "VLSI", "RTL Design", "RISC-V", "Vector Processors", "Edge AI", "TinyML", "Embedded Systems", "Computer Vision", "Anomaly Detection", "Digital Logic Design"],
       "sameAs": [
         "https://github.com/sushant-mishra-dtu",
         "https://www.linkedin.com/in/sushant-mishra-dtu/"
@@ -188,7 +188,8 @@
             <div class="about-copy" data-sec>
                 <p class="about-lead-para">I'm an electrical engineering student at Delhi Technological University, on a B.Tech that runs from 2025 to 2029. I work at the layer where <b>hardware meets intelligence</b>: RTL design on FPGAs, machine learning small enough to live on a microcontroller, and the timing budgets that decide whether an idea survives contact with real silicon.</p>
                 <p>Most of what I build starts on a bench, not a cloud console. The FPGA accelerator that anchors this site runs per-frame anomaly detection in <b>57.17 microseconds</b> with no network in the loop. I pay attention to the nanoseconds because on hardware they are the difference between a system that ships and one that misses its deadline.</p>
-                <p>Away from the lab I have shipped full-stack web apps in production during an internship, and led a hackathon team through a mid-event pivot. Right now I am open to internships and hardware or edge-AI roles.</p>
+                <p>The current work is a RISC-V Vector core, built so the design question is answered by measurement rather than argument: two builds differ in exactly one module, are required to agree bit for bit on architectural state, and the result gets published even when &mdash; as in v1 &mdash; the idea does not beat the baseline.</p>
+                <p>Away from silicon I have put object detection on an Android phone, unsupervised anomaly detection on a UAV telemetry link, and full-stack web apps into production during an internship, plus a hackathon team led through a mid-event pivot. Right now I am open to internships and hardware or edge-AI roles.</p>
             </div>
 
             <aside class="about-aside" data-sec>
@@ -255,12 +256,12 @@
                 <span class="eyebrow mono" data-sec>INDEX // 02</span>
                 <h2 class="section-title" data-sec>Selected work</h2>
             </div>
-            <p class="section-lead" data-sec>Six builds from the bench. The FPGA accelerator is the flagship, the rest span hardware, edge AI, and software.</p>
+            <p class="section-lead" data-sec>Nine builds from the bench, running from raw silicon up to the software on top. The FPGA accelerator is the flagship; the RISC-V vector core is where the current work sits.</p>
         </div>
 
         <div class="work-stats" data-sec>
             <div class="wstat">
-                <div class="wstat-num"><span class="count" data-target="57.17" data-decimals="2">57.17</span><span class="wstat-unit">µs</span></div>
+                <div class="wstat-num"><span class="count" data-target="57.17" data-decimals="2">57.17</span><span class="wstat-unit">&micro;s</span></div>
                 <div class="wstat-lbl mono">PER-FRAME LATENCY</div>
             </div>
             <div class="wstat">
@@ -271,15 +272,17 @@
                 <div class="wstat-num"><span class="count" data-target="921.6" data-decimals="1">921.6</span><span class="wstat-unit">k</span></div>
                 <div class="wstat-lbl mono">UART BAUD</div>
             </div>
-            <span class="wstat-note mono">// FLAGSHIP TELEMETRY · FPGA-ACCELERATED<br>EDGE INTELLIGENCE SYSTEM</span>
+            <span class="wstat-note mono">// FLAGSHIP TELEMETRY &middot; FPGA-ACCELERATED<br>EDGE INTELLIGENCE SYSTEM</span>
         </div>
     </div>
 
     <div class="hp" id="hp">
         <div class="hp-plane" id="hpPlane">
+
+            <!-- ============ ROW A // SILICON ============ -->
             <div class="hp-row hp-row-a">
 
-                <!-- Flagship: FPGA -->
+                <!-- Flagship: FPGA accelerator -->
                 <article class="hp-card hp-card--flagship" data-hp>
                     <div class="hp-frame">
                         <img class="hp-img" src="FPGA_edge_accelerator_using_uart_flowchart.png" alt="Hardware block architecture diagram showing the UART pipeline between the ESP32-S3 and the PYNQ-Z2 FPGA" loading="lazy" decoding="async">
@@ -293,11 +296,67 @@
                     </div>
                     <div class="hp-cap">
                         <div class="hp-cap-text">
-                            <span class="hp-kicker mono">HARDWARE · SEMIXTHON 2026</span>
+                            <span class="hp-kicker mono">HARDWARE &middot; SEMIXTHON 2026</span>
                             <h3 class="hp-title">FPGA-accelerated edge intelligence system</h3>
-                            <span class="hp-metric mono">57.17µs per-frame · 87x faster · 921.6k baud</span>
+                            <span class="hp-metric mono">57.17&micro;s per-frame &middot; 87x faster &middot; 921.6k baud</span>
                         </div>
                         <a class="hp-link" href="https://github.com/sushant-mishra-dtu/FPGA-Accelerated-Edge-Intelligence-System" target="_blank" rel="noopener" aria-label="FPGA-accelerated edge intelligence system on GitHub">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- E-HVGP: RISC-V vector core -->
+                <article class="hp-card" data-hp>
+                    <div class="hp-frame hp-frame--schematic">
+                        <svg class="hp-svg" viewBox="0 0 640 400" role="img" aria-labelledby="svgt-hvgp">
+                            <title id="svgt-hvgp">Schematic: the rename stage feeds a placement engine that assigns vector register groups across four VRF banks, compared side by side against the baseline scheme</title>
+                            <rect class="s-blk" x="24" y="24" width="170" height="52" rx="3"></rect>
+                            <text class="s-txt" x="36" y="48">RENAME</text>
+                            <text class="s-sub" x="36" y="66">EMUL &middot; LMUL &middot; SEW</text>
+                            <path class="s-wire" d="M194 50 H228"></path><path class="s-arrow" d="M228 45 l10 5 -10 5 z"></path>
+                            <rect class="s-blk-hi" x="242" y="24" width="176" height="52" rx="3"></rect>
+                            <text class="s-txt s-cop" x="254" y="48">PLACEMENT ENG</text>
+                            <text class="s-sub" x="254" y="66">base + stride</text>
+                            <path class="s-wire" d="M418 50 H452"></path><path class="s-arrow" d="M452 45 l10 5 -10 5 z"></path>
+                            <rect class="s-blk" x="466" y="24" width="150" height="52" rx="3"></rect>
+                            <text class="s-txt" x="478" y="48">4 VRF BANKS</text>
+                            <text class="s-sub" x="478" y="66">identical state</text>
+
+                            <rect class="s-panel" x="24" y="104" width="284" height="250" rx="4"></rect>
+                            <text class="s-lbl" x="38" y="132">BASELINE // B</text>
+                            <text class="s-lbl" x="70" y="158" text-anchor="middle">b0</text><text class="s-lbl" x="132" y="158" text-anchor="middle">b1</text><text class="s-lbl" x="194" y="158" text-anchor="middle">b2</text><text class="s-lbl" x="256" y="158" text-anchor="middle">b3</text>
+                            <rect class="s-cell-on" x="44" y="168" width="52" height="34" rx="2"></rect><rect class="s-cell-on" x="106" y="168" width="52" height="34" rx="2"></rect><rect class="s-cell" x="168" y="168" width="52" height="34" rx="2"></rect><rect class="s-cell" x="230" y="168" width="52" height="34" rx="2"></rect>
+                            <rect class="s-cell-on" x="44" y="212" width="52" height="34" rx="2"></rect><rect class="s-cell-on" x="106" y="212" width="52" height="34" rx="2"></rect><rect class="s-cell" x="168" y="212" width="52" height="34" rx="2"></rect><rect class="s-cell" x="230" y="212" width="52" height="34" rx="2"></rect>
+                            <rect class="s-cell-on" x="44" y="256" width="52" height="34" rx="2"></rect><rect class="s-cell-on" x="106" y="256" width="52" height="34" rx="2"></rect><rect class="s-cell" x="168" y="256" width="52" height="34" rx="2"></rect><rect class="s-cell" x="230" y="256" width="52" height="34" rx="2"></rect>
+                            <rect class="s-cell-on" x="44" y="300" width="52" height="34" rx="2"></rect><rect class="s-cell-on" x="106" y="300" width="52" height="34" rx="2"></rect><rect class="s-cell" x="168" y="300" width="52" height="34" rx="2"></rect><rect class="s-cell" x="230" y="300" width="52" height="34" rx="2"></rect>
+
+                            <rect class="s-panel" x="332" y="104" width="284" height="250" rx="4"></rect>
+                            <text class="s-lbl s-cop" x="346" y="132">E-HVGP // E</text>
+                            <text class="s-lbl" x="378" y="158" text-anchor="middle">b0</text><text class="s-lbl" x="440" y="158" text-anchor="middle">b1</text><text class="s-lbl" x="502" y="158" text-anchor="middle">b2</text><text class="s-lbl" x="564" y="158" text-anchor="middle">b3</text>
+                            <rect class="s-cell" x="352" y="168" width="52" height="34" rx="2"></rect><rect class="s-cell-cop" x="414" y="168" width="52" height="34" rx="2"></rect><rect class="s-cell" x="476" y="168" width="52" height="34" rx="2"></rect><rect class="s-cell-cop" x="538" y="168" width="52" height="34" rx="2"></rect>
+                            <rect class="s-cell" x="352" y="212" width="52" height="34" rx="2"></rect><rect class="s-cell-cop" x="414" y="212" width="52" height="34" rx="2"></rect><rect class="s-cell" x="476" y="212" width="52" height="34" rx="2"></rect><rect class="s-cell-cop" x="538" y="212" width="52" height="34" rx="2"></rect>
+                            <rect class="s-cell" x="352" y="256" width="52" height="34" rx="2"></rect><rect class="s-cell-cop" x="414" y="256" width="52" height="34" rx="2"></rect><rect class="s-cell" x="476" y="256" width="52" height="34" rx="2"></rect><rect class="s-cell-cop" x="538" y="256" width="52" height="34" rx="2"></rect>
+                            <rect class="s-cell" x="352" y="300" width="52" height="34" rx="2"></rect><rect class="s-cell-cop" x="414" y="300" width="52" height="34" rx="2"></rect><rect class="s-cell" x="476" y="300" width="52" height="34" rx="2"></rect><rect class="s-cell-cop" x="538" y="300" width="52" height="34" rx="2"></rect>
+
+                            <text class="s-lbl" x="24" y="380">EVERY GROUP, SAME BANKS</text>
+                            <text class="s-lbl s-cop" x="616" y="380" text-anchor="end">&Delta; CYCLES +2.2 &hellip; +10.0%</text>
+                        </svg>
+                        <span class="hp-tag mono">[ VRF_BANK_AB ]</span>
+                        <div class="hp-detail">
+                            <p>A RISC-V Vector core that picks a different VRF bank-placement topology per register group, decided at rename from EMUL, LMUL and SEW. Two builds differ in exactly one module and must produce byte-identical architectural state.</p>
+                            <div class="hp-chips">
+                                <span class="chip mono">RVV 1.0</span><span class="chip mono">Verilog-2001</span><span class="chip mono">Xcelium</span><span class="chip mono">Vivado</span><span class="chip mono">VRF banking</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hp-cap">
+                        <div class="hp-cap-text">
+                            <span class="hp-kicker mono">HARDWARE &middot; RISC-V VECTOR</span>
+                            <h3 class="hp-title">E-HVGP vector-group placement</h3>
+                            <span class="hp-metric mono">A/B-verified negative result &middot; cause isolated</span>
+                        </div>
+                        <a class="hp-link" href="https://github.com/sushant-mishra-dtu/e-hvgp" target="_blank" rel="noopener" aria-label="E-HVGP vector-group placement on GitHub">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
                         </a>
                     </div>
@@ -309,19 +368,341 @@
                         <img class="hp-img" src="adas-demo.png" alt="ADAS heads-up display processing a street scene with computer-vision bounding boxes on detected objects" loading="lazy" decoding="async">
                         <span class="hp-tag mono">[ VISION_02 ]</span>
                         <div class="hp-detail">
-                            <p>Advanced driver assistance combining computer vision, sensor fusion, and machine learning for real-time object detection.</p>
+                            <p>A native Android dashcam that runs object detection entirely on the phone camera &mdash; no backend, no network in the loop &mdash; tuned for India&rsquo;s unstructured traffic rather than orderly lane-marked roads.</p>
                             <div class="hp-chips">
-                                <span class="chip mono">Computer vision</span><span class="chip mono">Sensor fusion</span><span class="chip mono">Machine learning</span>
+                                <span class="chip mono">Kotlin</span><span class="chip mono">Jetpack Compose</span><span class="chip mono">CameraX</span><span class="chip mono">TensorFlow Lite</span><span class="chip mono">YOLOv8n INT8</span>
                             </div>
                         </div>
                     </div>
                     <div class="hp-cap">
                         <div class="hp-cap-text">
-                            <span class="hp-kicker mono">HARDWARE</span>
-                            <h3 class="hp-title">ADAS</h3>
-                            <span class="hp-metric mono">Real-time object detection</span>
+                            <span class="hp-kicker mono">EDGE AI &middot; ON-DEVICE VISION</span>
+                            <h3 class="hp-title">ADAS &mdash; AI dashcam for Indian roads</h3>
+                            <span class="hp-metric mono">12&ndash;15 FPS on a Galaxy A55 &middot; 3.2 MB INT8 model</span>
                         </div>
                         <a class="hp-link" href="https://github.com/sushant-mishra-dtu/ADAS" target="_blank" rel="noopener" aria-label="ADAS on GitHub">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- ============ ROW B // EDGE AI ============ -->
+            <div class="hp-row hp-row-b">
+
+                <!-- ARUNA -->
+                <article class="hp-card" data-hp>
+                    <div class="hp-frame hp-frame--schematic">
+                        <svg class="hp-svg" viewBox="0 0 640 400" role="img" aria-labelledby="svgt-aruna">
+                            <title id="svgt-aruna">Schematic: UAV MAVLink telemetry is windowed, passed through an LSTM autoencoder, and its reconstruction error spikes above threshold during an attack, attributing the anomaly to specific channels</title>
+                            <circle class="s-glyph" cx="52" cy="60" r="9"></circle><circle class="s-glyph" cx="90" cy="60" r="9"></circle>
+                            <circle class="s-glyph" cx="52" cy="98" r="9"></circle><circle class="s-glyph" cx="90" cy="98" r="9"></circle>
+                            <path class="s-wire" d="M52 60 L90 98 M90 60 L52 98"></path>
+                            <rect class="s-blk" x="63" y="71" width="16" height="16" rx="2"></rect>
+                            <text class="s-lbl" x="71" y="126" text-anchor="middle">UAV</text>
+
+                            <path class="s-wire s-dash" d="M104 79 H190"></path><path class="s-arrow" d="M190 74 l10 5 -10 5 z"></path>
+                            <text class="s-lbl" x="147" y="66" text-anchor="middle">MAVLINK / UDP</text>
+
+                            <rect class="s-blk" x="204" y="52" width="116" height="54" rx="3"></rect>
+                            <text class="s-txt" x="216" y="78">WINDOW</text>
+                            <text class="s-sub" x="216" y="96">t&minus;31 &hellip; t</text>
+                            <path class="s-wire" d="M320 79 H344"></path><path class="s-arrow" d="M344 74 l10 5 -10 5 z"></path>
+
+                            <path class="s-blk" d="M360 52 L398 72 L398 86 L360 106 Z"></path>
+                            <rect class="s-blk-hi" x="402" y="66" width="16" height="26" rx="2"></rect>
+                            <path class="s-blk" d="M460 52 L422 72 L422 86 L460 106 Z"></path>
+                            <text class="s-txt s-cop" x="410" y="130" text-anchor="middle">LSTM-AE</text>
+                            <text class="s-sub" x="410" y="148" text-anchor="middle">normal flight only</text>
+
+                            <path class="s-wire" d="M460 79 H496"></path><path class="s-arrow" d="M496 74 l10 5 -10 5 z"></path>
+                            <rect class="s-blk" x="510" y="52" width="106" height="54" rx="3"></rect>
+                            <text class="s-txt" x="522" y="78">RECON</text>
+                            <text class="s-sub" x="522" y="96">error</text>
+
+                            <rect class="s-panel" x="24" y="176" width="592" height="130" rx="4"></rect>
+                            <path class="s-wire s-dash s-cop-stroke" d="M40 224 H600"></path>
+                            <text class="s-lbl s-cop" x="600" y="216" text-anchor="end">THRESHOLD</text>
+                            <path class="s-trace" d="M40 274 L74 270 L108 277 L142 271 L176 276 L210 269 L244 275 L278 272 L312 277 L346 270 L380 275 L404 271 L420 268"></path>
+                            <path class="s-trace s-trace-hi" d="M420 268 L432 200 L444 190 L458 204 L472 252 L486 269"></path>
+                            <path class="s-trace" d="M486 269 L514 274 L548 270 L582 276 L600 272"></path>
+                            <text class="s-lbl s-cop" x="500" y="198">ANOMALY</text>
+
+                            <rect class="s-cell-cop" x="24" y="330" width="76" height="34" rx="2"></rect><text class="s-sub s-cop" x="62" y="352" text-anchor="middle">lat</text>
+                            <rect class="s-cell-cop" x="112" y="330" width="76" height="34" rx="2"></rect><text class="s-sub s-cop" x="150" y="352" text-anchor="middle">lon</text>
+                            <rect class="s-cell" x="200" y="330" width="76" height="34" rx="2"></rect><text class="s-sub" x="238" y="352" text-anchor="middle">alt</text>
+                            <rect class="s-cell" x="288" y="330" width="76" height="34" rx="2"></rect><text class="s-sub" x="326" y="352" text-anchor="middle">vx</text>
+                            <text class="s-lbl s-cop" x="384" y="352">&rarr; ATTRIBUTED: GPS_SPOOF</text>
+                        </svg>
+                        <span class="hp-tag mono">[ MAVLINK_AE ]</span>
+                        <div class="hp-detail">
+                            <p>Watches a UAV&rsquo;s MAVLink link in real time and flags GPS spoofing, packet injection, and replay. Trained only on normal flight, so it catches attacks it has never seen &mdash; and names the channel that was attacked.</p>
+                            <div class="hp-chips">
+                                <span class="chip mono">PyTorch</span><span class="chip mono">LSTM autoencoder</span><span class="chip mono">MAVLink</span><span class="chip mono">ONNX INT8</span><span class="chip mono">Streamlit</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hp-cap">
+                        <div class="hp-cap-text">
+                            <span class="hp-kicker mono">EDGE AI &middot; UAV SECURITY</span>
+                            <h3 class="hp-title">ARUNA aerial anomaly detector</h3>
+                            <span class="hp-metric mono">Unsupervised &middot; per-channel attribution</span>
+                        </div>
+                        <a class="hp-link" href="https://github.com/sushant-mishra-dtu/ARUNA---Aerial-Real-time-Unsupervised-Neural-Anomaly-detector" target="_blank" rel="noopener" aria-label="ARUNA aerial anomaly detector on GitHub">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Deepfake detector -->
+                <article class="hp-card" data-hp>
+                    <div class="hp-frame hp-frame--schematic">
+                        <svg class="hp-svg" viewBox="0 0 640 400" role="img" aria-labelledby="svgt-df">
+                            <title id="svgt-df">Schematic: four independent evidence classes fan in to a calibrated fusion stage that emits both a score and an evidence weight, assembled into an evidence report</title>
+                            <rect class="s-blk" x="24" y="32" width="176" height="54" rx="3"></rect>
+                            <text class="s-txt" x="36" y="56">AI / ML MODELS</text>
+                            <text class="s-sub" x="36" y="74">spectral &middot; seams</text>
+                            <rect class="s-blk" x="24" y="100" width="176" height="54" rx="3"></rect>
+                            <text class="s-txt" x="36" y="124">FORENSICS</text>
+                            <text class="s-sub" x="36" y="142">ELA &middot; noise &middot; quant</text>
+                            <rect class="s-blk" x="24" y="168" width="176" height="54" rx="3"></rect>
+                            <text class="s-txt" x="36" y="192">METADATA</text>
+                            <text class="s-sub" x="36" y="210">EXIF &middot; C2PA</text>
+                            <rect class="s-blk" x="24" y="236" width="176" height="54" rx="3"></rect>
+                            <text class="s-txt" x="36" y="260">CONTENT MATCH</text>
+                            <text class="s-sub" x="36" y="278">pHash &middot; reverse</text>
+
+                            <path class="s-wire" d="M200 59 C252 59 252 186 296 186"></path>
+                            <path class="s-wire" d="M200 127 C252 127 252 186 296 186"></path>
+                            <path class="s-wire" d="M200 195 C252 195 252 186 296 186"></path>
+                            <path class="s-wire" d="M200 263 C252 263 252 186 296 186"></path>
+                            <path class="s-arrow" d="M296 181 l10 5 -10 5 z"></path>
+
+                            <rect class="s-blk-hi" x="310" y="142" width="140" height="88" rx="3"></rect>
+                            <text class="s-txt s-cop" x="380" y="172" text-anchor="middle">CALIBRATED</text>
+                            <text class="s-txt s-cop" x="380" y="197" text-anchor="middle">FUSION</text>
+                            <text class="s-sub" x="380" y="219" text-anchor="middle">Platt-scaled</text>
+
+                            <path class="s-wire" d="M450 186 H462"></path><path class="s-arrow" d="M462 181 l10 5 -10 5 z"></path>
+                            <rect class="s-blk" x="470" y="118" width="146" height="46" rx="3"></rect>
+                            <text class="s-sub" x="484" y="147">SCORE + CI</text>
+                            <rect class="s-blk" x="470" y="176" width="146" height="46" rx="3"></rect>
+                            <text class="s-sub" x="484" y="205">EVIDENCE WEIGHT</text>
+                            <path class="s-wire" d="M543 222 V250"></path><path class="s-arrow" d="M538 250 l5 10 5 -10 z"></path>
+                            <rect class="s-blk" x="470" y="264" width="146" height="46" rx="3"></rect>
+                            <text class="s-sub s-cop" x="484" y="293">EVIDENCE REPORT</text>
+
+                            <text class="s-lbl" x="24" y="342">NO SINGLE SIGNAL CAN VETO THE OTHERS</text>
+                            <text class="s-lbl s-cop" x="24" y="366">THE REPORT MUST CARRY ITS COUNTER-EVIDENCE</text>
+                        </svg>
+                        <span class="hp-tag mono">[ FUSION_04 ]</span>
+                        <span class="hp-flag hp-status hp-status--wip mono">PLANNING PHASE</span>
+                        <div class="hp-detail">
+                            <p>Four independent evidence classes &mdash; learned artifacts, digital forensics, metadata and C2PA provenance, and content matching &mdash; fused into one calibrated Evidence Report that is allowed to say &ldquo;we can&rsquo;t tell.&rdquo; Architecture and model roster settled; implementation under way.</p>
+                            <div class="hp-chips">
+                                <span class="chip mono">Python</span><span class="chip mono">Platt calibration</span><span class="chip mono">C2PA</span><span class="chip mono">ELA / noise residuals</span><span class="chip mono">REST API</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hp-cap">
+                        <div class="hp-cap-text">
+                            <span class="hp-kicker mono">AI &middot; MEDIA FORENSICS</span>
+                            <h3 class="hp-title">Deepfake &amp; media authenticity verification</h3>
+                            <span class="hp-metric mono">Four evidence classes &middot; score + evidence weight</span>
+                        </div>
+                        <a class="hp-link" href="https://github.com/sushant-mishra-dtu/Deepfake-Detector" target="_blank" rel="noopener" aria-label="Deepfake and media authenticity verification on GitHub">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Conversational AI commentator -->
+                <article class="hp-card" data-hp>
+                    <div class="hp-frame hp-frame--schematic">
+                        <svg class="hp-svg" viewBox="0 0 640 400" role="img" aria-labelledby="svgt-comm">
+                            <title id="svgt-comm">Schematic: microphone audio passes through voice activity detection into a server-authoritative state machine, which drives a conversational model and a fact-reading text-to-speech rail, arbitrated by an audio mux into one outbound stream</title>
+                            <rect class="s-blk" x="24" y="36" width="104" height="50" rx="3"></rect>
+                            <text class="s-txt" x="36" y="60">MIC</text>
+                            <text class="s-sub" x="36" y="78">24 kHz</text>
+                            <path class="s-wire" d="M128 61 H152"></path><path class="s-arrow" d="M152 56 l10 5 -10 5 z"></path>
+                            <rect class="s-blk" x="166" y="36" width="90" height="50" rx="3"></rect>
+                            <text class="s-txt" x="178" y="67">VAD</text>
+                            <path class="s-wire" d="M256 61 H280"></path><path class="s-arrow" d="M280 56 l10 5 -10 5 z"></path>
+                            <rect class="s-blk-hi" x="294" y="36" width="132" height="50" rx="3"></rect>
+                            <text class="s-txt s-cop" x="306" y="60">FSM</text>
+                            <text class="s-sub" x="306" y="78">authoritative</text>
+
+                            <path class="s-wire" d="M426 61 H440"></path><path class="s-arrow" d="M440 56 l10 5 -10 5 z"></path>
+                            <rect class="s-blk" x="452" y="36" width="164" height="50" rx="3"></rect>
+                            <text class="s-txt" x="464" y="60">RAG ROUTER</text>
+                            <text class="s-sub" x="464" y="78">SQLite stats</text>
+
+                            <path class="s-wire" d="M340 86 C340 120 280 118 280 152"></path><path class="s-arrow" d="M275 152 l5 10 5 -10 z"></path>
+                            <path class="s-wire" d="M534 86 V152"></path><path class="s-arrow" d="M529 152 l5 10 5 -10 z"></path>
+
+                            <rect class="s-blk-hi" x="190" y="158" width="180" height="58" rx="3"></rect>
+                            <text class="s-txt s-cop" x="202" y="184">PERSONAPLEX 7B</text>
+                            <text class="s-sub" x="202" y="202">Q4_K &middot; Vulkan</text>
+                            <rect class="s-blk" x="444" y="158" width="180" height="58" rx="3"></rect>
+                            <text class="s-txt" x="456" y="184">TTS RAIL</text>
+                            <text class="s-sub" x="456" y="202">facts, verbatim</text>
+
+                            <path class="s-wire" d="M280 216 C280 248 316 244 316 268"></path>
+                            <path class="s-wire" d="M534 216 C534 248 396 244 396 268"></path>
+                            <path class="s-arrow" d="M311 268 l5 10 5 -10 z"></path><path class="s-arrow" d="M391 268 l5 10 5 -10 z"></path>
+
+                            <rect class="s-blk" x="228" y="278" width="176" height="52" rx="3"></rect>
+                            <text class="s-txt" x="240" y="302">AUDIOMUX</text>
+                            <text class="s-sub" x="240" y="320">single out queue</text>
+                            <path class="s-wire" d="M316 330 V352"></path><path class="s-arrow" d="M311 352 l5 10 5 -10 z"></path>
+                            <text class="s-lbl s-cop" x="24" y="376">ONE STREAM + FSM STATE</text>
+                            <text class="s-lbl" x="616" y="376" text-anchor="end">BARGE-IN CAPABLE</text>
+                        </svg>
+                        <span class="hp-tag mono">[ AUDIO_MUX ]</span>
+                        <div class="hp-detail">
+                            <p>A server-authoritative commentary engine: microphone audio in, barge-in-capable speech out. Two voices &mdash; a conversational model and a fact-reading TTS rail &mdash; arbitrated into a single outbound stream.</p>
+                            <div class="hp-chips">
+                                <span class="chip mono">FastAPI</span><span class="chip mono">WebSockets</span><span class="chip mono">React + Vite</span><span class="chip mono">webrtcvad</span><span class="chip mono">RAG</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hp-cap">
+                        <div class="hp-cap-text">
+                            <span class="hp-kicker mono">AI &middot; REAL-TIME VOICE</span>
+                            <h3 class="hp-title">Real-time conversational AI commentator</h3>
+                            <span class="hp-metric mono">Full-duplex &middot; PersonaPlex 7B on RX 7700 XT</span>
+                        </div>
+                        <a class="hp-link" href="https://github.com/sushant-mishra-dtu/Real-Time-Conversational-AI-Commentator" target="_blank" rel="noopener" aria-label="Real-time conversational AI commentator on GitHub">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- ============ ROW C // SOFTWARE ============ -->
+            <div class="hp-row hp-row-c">
+
+                <!-- Prediction Playground -->
+                <article class="hp-card" data-hp>
+                    <div class="hp-frame hp-frame--schematic">
+                        <svg class="hp-svg" viewBox="0 0 640 400" role="img" aria-labelledby="svgt-pp">
+                            <title id="svgt-pp">Schematic: a six-stage tabular machine-learning pipeline from CSV ingest through preprocessing, training, Optuna tuning, SHAP explanation and live prediction, with the same pipeline exposed as MCP tools</title>
+                            <rect class="s-blk" x="32" y="44" width="176" height="56" rx="3"></rect>
+                            <text class="s-txt" x="44" y="70">CSV / XLSX</text>
+                            <text class="s-sub" x="44" y="88">type inference</text>
+                            <path class="s-wire" d="M208 72 H226"></path><path class="s-arrow" d="M226 67 l10 5 -10 5 z"></path>
+                            <rect class="s-blk" x="232" y="44" width="176" height="56" rx="3"></rect>
+                            <text class="s-txt" x="244" y="70">PREPROCESS</text>
+                            <text class="s-sub" x="244" y="88">train split only</text>
+                            <path class="s-wire" d="M408 72 H426"></path><path class="s-arrow" d="M426 67 l10 5 -10 5 z"></path>
+                            <rect class="s-blk" x="432" y="44" width="176" height="56" rx="3"></rect>
+                            <text class="s-txt" x="444" y="70">TRAIN</text>
+                            <text class="s-sub" x="444" y="88">10 algorithms</text>
+
+                            <path class="s-wire" d="M520 100 V134 H120 V166"></path><path class="s-arrow" d="M115 166 l5 10 5 -10 z"></path>
+
+                            <rect class="s-blk-hi" x="32" y="176" width="176" height="56" rx="3"></rect>
+                            <text class="s-txt s-cop" x="44" y="202">AUTO-TUNE</text>
+                            <text class="s-sub" x="44" y="220">Optuna TPE &middot; 3-fold</text>
+                            <path class="s-wire" d="M208 204 H226"></path><path class="s-arrow" d="M226 199 l10 5 -10 5 z"></path>
+                            <rect class="s-blk" x="232" y="176" width="176" height="56" rx="3"></rect>
+                            <text class="s-txt" x="244" y="202">EXPLAIN</text>
+                            <text class="s-sub" x="244" y="220">SHAP &middot; leaderboard</text>
+                            <path class="s-wire" d="M408 204 H426"></path><path class="s-arrow" d="M426 199 l10 5 -10 5 z"></path>
+                            <rect class="s-blk" x="432" y="176" width="176" height="56" rx="3"></rect>
+                            <text class="s-txt" x="444" y="202">PREDICT</text>
+                            <text class="s-sub" x="444" y="220">single or batch</text>
+
+                            <path class="s-wire s-dash" d="M320 232 V286"></path><path class="s-arrow" d="M315 286 l5 10 5 -10 z"></path>
+                            <rect class="s-panel s-panel-dash" x="32" y="292" width="576" height="56" rx="3"></rect>
+                            <text class="s-txt s-cop" x="48" y="318">MCP SERVER</text>
+                            <text class="s-sub" x="48" y="336">the same pipeline exposed as tools</text>
+                            <text class="s-lbl" x="32" y="378">SCIKIT-LEARN + XGBOOST &middot; LEAKAGE-SAFE CV</text>
+                        </svg>
+                        <span class="hp-tag mono">[ AUTOML_07 ]</span>
+                        <div class="hp-detail">
+                            <p>No-code tabular ML end to end: upload a CSV, preprocess without leakage, train scikit-learn or XGBoost, tune with Optuna, explain with SHAP, and predict live. The same pipeline is also exposed as MCP tools.</p>
+                            <div class="hp-chips">
+                                <span class="chip mono">Streamlit</span><span class="chip mono">scikit-learn</span><span class="chip mono">XGBoost</span><span class="chip mono">Optuna</span><span class="chip mono">SHAP</span><span class="chip mono">MCP</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hp-cap">
+                        <div class="hp-cap-text">
+                            <span class="hp-kicker mono">SOFTWARE &middot; ML TOOLING</span>
+                            <h3 class="hp-title">Prediction Playground</h3>
+                            <span class="hp-metric mono">10 algorithms &middot; Optuna TPE &middot; MCP server</span>
+                        </div>
+                        <a class="hp-link" href="https://github.com/sushant-mishra-dtu/Prediction-Playground" target="_blank" rel="noopener" aria-label="Prediction Playground on GitHub">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Progress tracker -->
+                <article class="hp-card" data-hp>
+                    <div class="hp-frame hp-frame--schematic">
+                        <svg class="hp-svg" viewBox="0 0 640 400" role="img" aria-labelledby="svgt-pt">
+                            <title id="svgt-pt">Schematic: a twelve-week roadmap where completed weeks are unlocked, the next week sits behind a proof-of-work gate, and the remaining weeks stay locked in both the interface and the API</title>
+                            <text class="s-lbl" x="24" y="44">12-WEEK ROADMAP &middot; STRICT PROGRESSION</text>
+                            <rect class="s-cell-cop" x="24" y="60" width="40" height="48" rx="2"></rect>
+                            <rect class="s-cell-cop" x="74" y="60" width="40" height="48" rx="2"></rect>
+                            <rect class="s-cell-cop" x="124" y="60" width="40" height="48" rx="2"></rect>
+                            <rect class="s-cell-cop" x="174" y="60" width="40" height="48" rx="2"></rect>
+                            <path class="s-wire s-dash s-cop-stroke" d="M219 52 V116"></path>
+                            <rect class="s-blk-hi" x="224" y="60" width="40" height="48" rx="2"></rect>
+                            <rect class="s-cell" x="274" y="60" width="40" height="48" rx="2"></rect>
+                            <rect class="s-cell" x="324" y="60" width="40" height="48" rx="2"></rect>
+                            <rect class="s-cell" x="374" y="60" width="40" height="48" rx="2"></rect>
+                            <rect class="s-cell" x="424" y="60" width="40" height="48" rx="2"></rect>
+                            <rect class="s-cell" x="474" y="60" width="40" height="48" rx="2"></rect>
+                            <rect class="s-cell" x="524" y="60" width="40" height="48" rx="2"></rect>
+                            <rect class="s-cell" x="574" y="60" width="40" height="48" rx="2"></rect>
+                            <g class="s-lock">
+                                <path d="M290 80 v-5 a4 4 0 0 1 8 0 v5 M287 80 h14 v11 h-14 z"></path>
+                                <path d="M340 80 v-5 a4 4 0 0 1 8 0 v5 M337 80 h14 v11 h-14 z"></path>
+                                <path d="M390 80 v-5 a4 4 0 0 1 8 0 v5 M387 80 h14 v11 h-14 z"></path>
+                                <path d="M440 80 v-5 a4 4 0 0 1 8 0 v5 M437 80 h14 v11 h-14 z"></path>
+                                <path d="M490 80 v-5 a4 4 0 0 1 8 0 v5 M487 80 h14 v11 h-14 z"></path>
+                                <path d="M540 80 v-5 a4 4 0 0 1 8 0 v5 M537 80 h14 v11 h-14 z"></path>
+                                <path d="M590 80 v-5 a4 4 0 0 1 8 0 v5 M587 80 h14 v11 h-14 z"></path>
+                            </g>
+                            <text class="s-lbl" x="44" y="128" text-anchor="middle">W01</text><text class="s-lbl" x="94" y="128" text-anchor="middle">W02</text><text class="s-lbl" x="144" y="128" text-anchor="middle">W03</text><text class="s-lbl" x="194" y="128" text-anchor="middle">W04</text><text class="s-lbl s-cop" x="244" y="128" text-anchor="middle">W05</text><text class="s-lbl" x="294" y="128" text-anchor="middle">W06</text><text class="s-lbl" x="344" y="128" text-anchor="middle">W07</text><text class="s-lbl" x="394" y="128" text-anchor="middle">W08</text><text class="s-lbl" x="444" y="128" text-anchor="middle">W09</text><text class="s-lbl" x="494" y="128" text-anchor="middle">W10</text><text class="s-lbl" x="544" y="128" text-anchor="middle">W11</text><text class="s-lbl" x="594" y="128" text-anchor="middle">W12</text>
+                            <text class="s-lbl s-cop" x="219" y="158" text-anchor="middle">PROOF-OF-WORK GATE</text>
+
+                            <rect class="s-blk" x="24" y="188" width="184" height="72" rx="3"></rect>
+                            <text class="s-txt" x="40" y="222">POWER</text>
+                            <text class="s-sub" x="40" y="242">mW</text>
+                            <rect class="s-blk" x="228" y="188" width="184" height="72" rx="3"></rect>
+                            <text class="s-txt" x="244" y="222">AREA</text>
+                            <text class="s-sub" x="244" y="242">LUT &middot; DSP</text>
+                            <rect class="s-blk" x="432" y="188" width="184" height="72" rx="3"></rect>
+                            <text class="s-txt" x="448" y="222">TIMING SLACK</text>
+                            <text class="s-sub" x="448" y="242">ns</text>
+
+                            <rect class="s-panel s-panel-dash" x="24" y="286" width="592" height="60" rx="3"></rect>
+                            <text class="s-txt s-cop" x="40" y="312">THE API ENFORCES THE SAME LOCK</text>
+                            <text class="s-sub" x="40" y="332">week N+1 stays locked until week N closes</text>
+                            <text class="s-lbl" x="24" y="378">REACT + TS &middot; FASTAPI &middot; POSTGRESQL &middot; JWT</text>
+                        </svg>
+                        <span class="hp-tag mono">[ GATE_12W ]</span>
+                        <a class="hp-flag hp-status hp-status--live mono" href="https://progress-tracker-rho-umber.vercel.app" target="_blank" rel="noopener"><i class="dot" aria-hidden="true"></i>LIVE</a>
+                        <div class="hp-detail">
+                            <p>A roadmap tracker that enforces progression: week N+1 stays locked in both the UI and the API until week N closes with a proof-of-work link and real bench metrics &mdash; power, area, timing slack.</p>
+                            <div class="hp-chips">
+                                <span class="chip mono">React + TypeScript</span><span class="chip mono">Tailwind</span><span class="chip mono">FastAPI</span><span class="chip mono">PostgreSQL</span><span class="chip mono">JWT</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hp-cap">
+                        <div class="hp-cap-text">
+                            <span class="hp-kicker mono">SOFTWARE &middot; FULL-STACK</span>
+                            <h3 class="hp-title">Hardware AI roadmap tracker</h3>
+                            <span class="hp-metric mono">12-week gated roadmap &middot; JWT-secured API</span>
+                        </div>
+                        <a class="hp-link" href="https://github.com/sushant-mishra-dtu/Progress-Tracker" target="_blank" rel="noopener" aria-label="Hardware AI roadmap tracker on GitHub">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
                         </a>
                     </div>
@@ -341,16 +722,13 @@
                     </div>
                     <div class="hp-cap">
                         <div class="hp-cap-text">
-                            <span class="hp-kicker mono">SOFTWARE</span>
+                            <span class="hp-kicker mono">SOFTWARE &middot; FIELD RECORD</span>
                             <h3 class="hp-title">AM Hacks 2.0 web app</h3>
                             <span class="hp-metric mono">Top 20 finalist</span>
                         </div>
                     </div>
                 </article>
 
-            </div>
-
-            <div class="hp-row hp-row-b">
             </div>
         </div>
     </div>
@@ -421,26 +799,34 @@
             <article class="cap-card cap-lead" data-card>
                 <span class="cap-idx mono">CAP_01</span>
                 <h3>Hardware &amp; VLSI</h3>
-                <p class="cap-desc">Digital design, prototyping, and embedded hardware.</p>
+                <p class="cap-desc">RTL, silicon prototyping, and embedded hardware.</p>
                 <div class="chips">
+                    <span class="skill-chip mono" data-chip>VHDL</span>
+                    <span class="skill-chip mono" data-chip>Verilog-2001</span>
+                    <span class="skill-chip mono" data-chip>RTL design</span>
+                    <span class="skill-chip mono" data-chip>RISC-V / RVV 1.0</span>
+                    <span class="skill-chip mono" data-chip>PYNQ-Z2 / Zynq-7020</span>
+                    <span class="skill-chip mono" data-chip>Vivado</span>
+                    <span class="skill-chip mono" data-chip>Xcelium</span>
+                    <span class="skill-chip mono" data-chip>ESP32-S3</span>
                     <span class="skill-chip mono" data-chip>Arduino</span>
-                    <span class="skill-chip mono" data-chip>FPGA</span>
-                    <span class="skill-chip mono" data-chip>ESP32</span>
-                    <span class="skill-chip mono" data-chip>VHDL / RTL</span>
-                    <span class="skill-chip mono" data-chip>Chip design</span>
-                    <span class="skill-chip mono" data-chip>Logic gate architecture</span>
                 </div>
             </article>
 
             <article class="cap-card" data-card>
                 <span class="cap-idx mono">CAP_02</span>
-                <h3>AI &amp; ML</h3>
-                <p class="cap-desc">Machine learning where it meets the hardware.</p>
+                <h3>Edge AI &amp; ML</h3>
+                <p class="cap-desc">Models small enough to run where the data is.</p>
                 <div class="chips">
-                    <span class="skill-chip mono" data-chip>Hardware acceleration</span>
                     <span class="skill-chip mono" data-chip>TinyML</span>
-                    <span class="skill-chip mono" data-chip>Edge AI</span>
-                    <span class="skill-chip mono" data-chip>ML fundamentals</span>
+                    <span class="skill-chip mono" data-chip>Hardware acceleration</span>
+                    <span class="skill-chip mono" data-chip>TensorFlow Lite</span>
+                    <span class="skill-chip mono" data-chip>PyTorch</span>
+                    <span class="skill-chip mono" data-chip>ONNX / INT8 quantization</span>
+                    <span class="skill-chip mono" data-chip>scikit-learn</span>
+                    <span class="skill-chip mono" data-chip>XGBoost</span>
+                    <span class="skill-chip mono" data-chip>Optuna</span>
+                    <span class="skill-chip mono" data-chip>SHAP</span>
                 </div>
             </article>
 
@@ -449,9 +835,14 @@
                 <h3>Software</h3>
                 <p class="cap-desc">Full-stack development and services.</p>
                 <div class="chips">
-                    <span class="skill-chip mono" data-chip>Backend systems</span>
-                    <span class="skill-chip mono" data-chip>API design</span>
-                    <span class="skill-chip mono" data-chip>Responsive UI</span>
+                    <span class="skill-chip mono" data-chip>Python</span>
+                    <span class="skill-chip mono" data-chip>FastAPI</span>
+                    <span class="skill-chip mono" data-chip>React + TypeScript</span>
+                    <span class="skill-chip mono" data-chip>Kotlin</span>
+                    <span class="skill-chip mono" data-chip>Streamlit</span>
+                    <span class="skill-chip mono" data-chip>PostgreSQL</span>
+                    <span class="skill-chip mono" data-chip>WebSockets</span>
+                    <span class="skill-chip mono" data-chip>REST + MCP</span>
                 </div>
             </article>
 
@@ -462,6 +853,7 @@
                 <div class="chips">
                     <span class="skill-chip mono" data-chip>Digital logic design</span>
                     <span class="skill-chip mono" data-chip>Digital electronics</span>
+                    <span class="skill-chip mono" data-chip>Computer architecture</span>
                     <span class="skill-chip mono" data-chip>Data structures &amp; algorithms</span>
                     <span class="skill-chip mono" data-chip>Rapid prototyping</span>
                 </div>
@@ -471,8 +863,8 @@
 
     <div class="marquee" aria-hidden="true">
         <div class="marquee-track">
-            <span>RTL</span><span class="sep">·</span><span>SILICON</span><span class="sep">·</span><span>EDGE-AI</span><span class="sep">·</span><span>VHDL</span><span class="sep">·</span><span>FPGA</span><span class="sep">·</span><span>TINYML</span><span class="sep">·</span><span>UART</span><span class="sep">·</span><span>RTL</span><span class="sep">·</span><span>SILICON</span><span class="sep">·</span><span>EDGE-AI</span><span class="sep">·</span><span>VHDL</span><span class="sep">·</span><span>FPGA</span><span class="sep">·</span><span>TINYML</span><span class="sep">·</span><span>UART</span><span class="sep">·</span>
-            <span>RTL</span><span class="sep">·</span><span>SILICON</span><span class="sep">·</span><span>EDGE-AI</span><span class="sep">·</span><span>VHDL</span><span class="sep">·</span><span>FPGA</span><span class="sep">·</span><span>TINYML</span><span class="sep">·</span><span>UART</span><span class="sep">·</span><span>RTL</span><span class="sep">·</span><span>SILICON</span><span class="sep">·</span><span>EDGE-AI</span><span class="sep">·</span><span>VHDL</span><span class="sep">·</span><span>FPGA</span><span class="sep">·</span><span>TINYML</span><span class="sep">·</span><span>UART</span><span class="sep">·</span>
+            <span>RTL</span><span class="sep">·</span><span>SILICON</span><span class="sep">·</span><span>RISC-V</span><span class="sep">·</span><span>EDGE-AI</span><span class="sep">·</span><span>VHDL</span><span class="sep">·</span><span>VERILOG</span><span class="sep">·</span><span>FPGA</span><span class="sep">·</span><span>TINYML</span><span class="sep">·</span><span>UART</span><span class="sep">·</span><span>RTL</span><span class="sep">·</span><span>SILICON</span><span class="sep">·</span><span>RISC-V</span><span class="sep">·</span><span>EDGE-AI</span><span class="sep">·</span><span>VHDL</span><span class="sep">·</span><span>VERILOG</span><span class="sep">·</span><span>FPGA</span><span class="sep">·</span><span>TINYML</span><span class="sep">·</span><span>UART</span><span class="sep">·</span>
+            <span>RTL</span><span class="sep">·</span><span>SILICON</span><span class="sep">·</span><span>RISC-V</span><span class="sep">·</span><span>EDGE-AI</span><span class="sep">·</span><span>VHDL</span><span class="sep">·</span><span>VERILOG</span><span class="sep">·</span><span>FPGA</span><span class="sep">·</span><span>TINYML</span><span class="sep">·</span><span>UART</span><span class="sep">·</span><span>RTL</span><span class="sep">·</span><span>SILICON</span><span class="sep">·</span><span>RISC-V</span><span class="sep">·</span><span>EDGE-AI</span><span class="sep">·</span><span>VHDL</span><span class="sep">·</span><span>VERILOG</span><span class="sep">·</span><span>FPGA</span><span class="sep">·</span><span>TINYML</span><span class="sep">·</span><span>UART</span><span class="sep">·</span>
         </div>
     </div>
 </section>
