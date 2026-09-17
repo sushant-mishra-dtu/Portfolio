@@ -189,7 +189,7 @@
                 <p class="about-lead-para">I'm an electrical engineering student at Delhi Technological University, on a B.Tech that runs from 2025 to 2029. I work at the layer where <b>hardware meets intelligence</b>: RTL design on FPGAs, machine learning small enough to live on a microcontroller, and the timing budgets that decide whether an idea survives contact with real silicon.</p>
                 <p>Most of what I build starts on a bench, not a cloud console. The FPGA accelerator that anchors this site runs per-frame anomaly detection in <b>57.17 microseconds</b> with no network in the loop. I pay attention to the nanoseconds because on hardware they are the difference between a system that ships and one that misses its deadline.</p>
                 <p>The current work is a RISC-V Vector core, built so the design question is answered by measurement rather than argument: two builds differ in exactly one module, are required to agree bit for bit on architectural state, and the result gets published even when &mdash; as in v1 &mdash; the idea does not beat the baseline.</p>
-                <p>Away from silicon I have put object detection on an Android phone, unsupervised anomaly detection on a UAV telemetry link, and full-stack web apps into production during an internship, plus a hackathon team led through a mid-event pivot. Right now I am open to internships and hardware or edge-AI roles.</p>
+                <p>Away from silicon I have put object detection on an Android phone, unsupervised anomaly detection on a UAV telemetry link, and a GNSS-denied dead-reckoning filter on a phone IMU for Smart India Hackathon 2026. Upstream, I contribute fixes to NVIDIA NeMo&rsquo;s agent framework, and I shipped full-stack web apps into production during an internship, plus a hackathon team led through a mid-event pivot. Right now I am open to internships and hardware or edge-AI roles.</p>
             </div>
 
             <aside class="about-aside" data-sec>
@@ -236,6 +236,14 @@
                     <p>Built an FPGA-accelerated edge intelligence system: custom RTL on the PYNQ-Z2 hitting 57.17µs per-frame latency, 87x faster than target.</p>
                 </li>
                 <li>
+                    <span class="cm-tag mono">SIH 2026</span>
+                    <p>Filter-core lead on a six-seat Smart India Hackathon team: one Invariant EKF on SE&#8322;(3) for GNSS-denied dead reckoning, 846 tests, screening submission cleared.</p>
+                </li>
+                <li>
+                    <span class="cm-tag mono">NVIDIA NEMO</span>
+                    <p>Six merged upstream PRs to labs-OO-Agents covering storage, runtime, MCP and cross-platform encoding, each with a regression test.</p>
+                </li>
+                <li>
                     <span class="cm-tag mono">AM HACKS 2.0</span>
                     <p>Top 20 finalist. Sole technical lead through a mid-event pivot at a 48-hour offline hackathon.</p>
                 </li>
@@ -256,7 +264,7 @@
                 <span class="eyebrow mono" data-sec>INDEX // 02</span>
                 <h2 class="section-title" data-sec>Selected work</h2>
             </div>
-            <p class="section-lead" data-sec>Nine builds from the bench, running from raw silicon up to the software on top. The FPGA accelerator is the flagship; the RISC-V vector core is where the current work sits.</p>
+            <p class="section-lead" data-sec>Twelve entries from the bench, running from raw silicon up to the software on top and out into upstream open source. The FPGA accelerator is the flagship; the RISC-V vector core and GNSS-denied navigation are where the current work sits.</p>
         </div>
 
         <div class="work-stats" data-sec>
@@ -391,6 +399,76 @@
             <!-- ============ ROW B // EDGE AI ============ -->
             <div class="hp-row hp-row-b">
 
+                <!-- SIH-26168: GNSS-denied dead reckoning -->
+                <article class="hp-card" data-hp>
+                    <div class="hp-frame hp-frame--schematic">
+                        <svg class="hp-svg" viewBox="0 0 640 400" role="img" aria-labelledby="svgt-sih">
+                            <title id="svgt-sih">Schematic: phone IMU feeds a single Invariant EKF on SE2(3); GNSS enters only through a chi-squared gate; kinematic constraints and a learned speed head bound the drift, and an HMM matches the pose to an offline map</title>
+                            <rect class="s-blk" x="24" y="88" width="120" height="54" rx="3"></rect>
+                            <text class="s-txt" x="36" y="112">IMU</text>
+                            <text class="s-sub" x="36" y="130">10 Hz acc &middot; gyro</text>
+                            <path class="s-wire" d="M144 115 H176"></path><path class="s-arrow" d="M176 110 l10 5 -10 5 z"></path>
+
+                            <rect class="s-blk" x="238" y="20" width="118" height="40" rx="3"></rect>
+                            <text class="s-txt" x="250" y="46">GNSS</text>
+                            <path class="s-wire s-dash" d="M297 60 V70"></path>
+                            <rect class="s-blk" x="262" y="70" width="70" height="20" rx="2"></rect>
+                            <text class="s-lbl s-cop" x="297" y="84" text-anchor="middle">&chi;&sup2; GATE</text>
+                            <path class="s-wire s-dash s-cop-stroke" d="M297 90 V96"></path><path class="s-arrow" d="M292 92 l5 8 5 -8 z"></path>
+
+                            <rect class="s-blk-hi" x="190" y="100" width="214" height="54" rx="3"></rect>
+                            <text class="s-txt s-cop" x="202" y="124">InEKF &middot; SE&#8322;(3)</text>
+                            <text class="s-sub" x="202" y="142">R &middot; v &middot; p &middot; biases</text>
+                            <path class="s-wire" d="M404 127 H436"></path><path class="s-arrow" d="M436 122 l10 5 -10 5 z"></path>
+
+                            <rect class="s-blk" x="450" y="100" width="118" height="54" rx="3"></rect>
+                            <text class="s-txt" x="462" y="124">HMM MAP</text>
+                            <text class="s-sub" x="462" y="142">offline OSM</text>
+                            <path class="s-wire" d="M568 127 H584"></path><path class="s-arrow" d="M584 122 l10 5 -10 5 z"></path>
+                            <text class="s-txt s-cop" x="598" y="132">P</text>
+
+                            <rect class="s-blk" x="190" y="180" width="100" height="40" rx="3"></rect>
+                            <text class="s-sub" x="200" y="198">NHC &middot; ZUPT</text>
+                            <text class="s-lbl" x="200" y="213">anchors</text>
+                            <path class="s-wire" d="M240 180 V162"></path><path class="s-arrow" d="M235 162 l5 -8 5 8 z"></path>
+                            <rect class="s-blk" x="304" y="180" width="100" height="40" rx="3"></rect>
+                            <text class="s-sub" x="314" y="198">TCN SPEED</text>
+                            <text class="s-lbl" x="314" y="213">no &int;&int; acc</text>
+                            <path class="s-wire" d="M354 180 V162"></path><path class="s-arrow" d="M349 162 l5 -8 5 8 z"></path>
+
+                            <rect class="s-panel" x="24" y="240" width="592" height="112" rx="4"></rect>
+                            <rect class="s-cell" x="220" y="241" width="200" height="110"></rect>
+                            <text class="s-lbl" x="320" y="262" text-anchor="middle">GNSS DENIED</text>
+                            <path class="s-wire s-dash s-cop-stroke" d="M40 300 H600"></path>
+                            <text class="s-lbl s-cop" x="600" y="292" text-anchor="end">10% BUDGET</text>
+                            <path class="s-trace" d="M40 338 L220 336 C260 334 300 316 340 288 C372 266 396 256 420 250"></path>
+                            <text class="s-lbl" x="430" y="256">176 m @ 60 s</text>
+                            <path class="s-trace s-trace-hi" d="M40 338 L220 337 C270 336 330 326 420 324 L600 322"></path>
+
+                            <text class="s-lbl" x="24" y="380">NO WHEEL ODOMETRY &middot; NO CAN</text>
+                            <text class="s-lbl s-cop" x="616" y="380" text-anchor="end">GATE 1: 11.8&times; &middot; TARGET 3&ndash;5&times;</text>
+                        </svg>
+                        <span class="hp-tag mono">[ INEKF_SE23 ]</span>
+                        <span class="hp-flag hp-status hp-status--wip mono">GATE 1 &middot; IN PROGRESS</span>
+                        <div class="hp-detail">
+                            <p>Lane-level dead reckoning for cars in tunnels and urban canyons from a phone&rsquo;s IMU alone &mdash; no wheel speed, no CAN. One continuous Invariant EKF on SE&#8322;(3); GNSS is admitted only through a &chi;&sup2; gate, so nothing switches modes when the signal dies. Filter-core lead on a six-seat Smart India Hackathon team.</p>
+                            <div class="hp-chips">
+                                <span class="chip mono">Python / NumPy</span><span class="chip mono">Invariant EKF</span><span class="chip mono">SE&#8322;(3) Lie group</span><span class="chip mono">PyTorch TCN</span><span class="chip mono">Kotlin / Compose</span><span class="chip mono">C++20 FFI</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hp-cap">
+                        <div class="hp-cap-text">
+                            <span class="hp-kicker mono">EDGE AI &middot; GNSS-DENIED NAV &middot; SIH 2026</span>
+                            <h3 class="hp-title">Intelligent dead reckoning for GNSS-denied vehicles</h3>
+                            <span class="hp-metric mono">846 tests &middot; Gate 1: 11.8&times; drift, root cause isolated</span>
+                        </div>
+                        <a class="hp-link" href="https://github.com/sushant-mishra-dtu/SIH-26168" target="_blank" rel="noopener" aria-label="Intelligent dead reckoning for GNSS-denied vehicles on GitHub">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+                        </a>
+                    </div>
+                </article>
+
                 <!-- ARUNA -->
                 <article class="hp-card" data-hp>
                     <div class="hp-frame hp-frame--schematic">
@@ -517,6 +595,11 @@
                     </div>
                 </article>
 
+            </div>
+
+            <!-- ============ ROW C // SOFTWARE ============ -->
+            <div class="hp-row hp-row-c">
+
                 <!-- Conversational AI commentator -->
                 <article class="hp-card" data-hp>
                     <div class="hp-frame hp-frame--schematic">
@@ -578,11 +661,6 @@
                         </a>
                     </div>
                 </article>
-
-            </div>
-
-            <!-- ============ ROW C // SOFTWARE ============ -->
-            <div class="hp-row hp-row-c">
 
                 <!-- Prediction Playground -->
                 <article class="hp-card" data-hp>
@@ -703,6 +781,121 @@
                             <span class="hp-metric mono">12-week gated roadmap &middot; JWT-secured API</span>
                         </div>
                         <a class="hp-link" href="https://github.com/sushant-mishra-dtu/Progress-Tracker" target="_blank" rel="noopener" aria-label="Hardware AI roadmap tracker on GitHub">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- ============ ROW D // OPEN SOURCE & FIELD ============ -->
+            <div class="hp-row hp-row-d">
+
+                <!-- NVIDIA NeMo upstream contributions -->
+                <article class="hp-card" data-hp>
+                    <div class="hp-frame hp-frame--schematic">
+                        <svg class="hp-svg" viewBox="0 0 640 400" role="img" aria-labelledby="svgt-nemo">
+                            <title id="svgt-nemo">Schematic: a fork-patch-test-pull-request-CI-review-merge pipeline above a ledger of upstream pull requests to NVIDIA NeMo labs-OO-Agents, marking which are merged and which are open</title>
+                            <rect class="s-blk" x="24" y="28" width="84" height="44" rx="3"></rect>
+                            <text class="s-sub" x="66" y="55" text-anchor="middle">FORK</text>
+                            <path class="s-wire" d="M108 50 H124"></path><path class="s-arrow" d="M124 45 l8 5 -8 5 z"></path>
+                            <rect class="s-blk" x="134" y="28" width="118" height="44" rx="3"></rect>
+                            <text class="s-sub" x="193" y="55" text-anchor="middle">PATCH + TEST</text>
+                            <path class="s-wire" d="M252 50 H268"></path><path class="s-arrow" d="M268 45 l8 5 -8 5 z"></path>
+                            <rect class="s-blk-hi" x="278" y="28" width="118" height="44" rx="3"></rect>
+                            <text class="s-sub s-cop" x="337" y="55" text-anchor="middle">UPSTREAM PR</text>
+                            <path class="s-wire" d="M396 50 H412"></path><path class="s-arrow" d="M412 45 l8 5 -8 5 z"></path>
+                            <rect class="s-blk" x="422" y="28" width="56" height="44" rx="3"></rect>
+                            <text class="s-sub" x="450" y="55" text-anchor="middle">CI</text>
+                            <path class="s-wire" d="M478 50 H494"></path><path class="s-arrow" d="M494 45 l8 5 -8 5 z"></path>
+                            <rect class="s-blk" x="504" y="28" width="112" height="44" rx="3"></rect>
+                            <text class="s-sub" x="560" y="55" text-anchor="middle">REVIEW &rarr; MERGE</text>
+
+                            <rect class="s-panel" x="24" y="96" width="592" height="252" rx="4"></rect>
+                            <text class="s-lbl" x="40" y="122">#271</text><text class="s-sub" x="100" y="122">atif &middot; UTF-8 trajectory JSON</text><rect class="s-cell-cop" x="524" y="108" width="78" height="20" rx="2"></rect><text class="s-lbl s-cop" x="563" y="122" text-anchor="middle">MERGED</text>
+                            <text class="s-lbl" x="40" y="154">#285</text><text class="s-sub" x="100" y="154">runtime &middot; decode monitor output</text><rect class="s-cell-cop" x="524" y="140" width="78" height="20" rx="2"></rect><text class="s-lbl s-cop" x="563" y="154" text-anchor="middle">MERGED</text>
+                            <text class="s-lbl" x="40" y="186">#286</text><text class="s-sub" x="100" y="186">mcp &middot; token-cache guard</text><rect class="s-cell-cop" x="524" y="172" width="78" height="20" rx="2"></rect><text class="s-lbl s-cop" x="563" y="186" text-anchor="middle">MERGED</text>
+                            <text class="s-lbl" x="40" y="218">#295</text><text class="s-sub" x="100" y="218">storage &middot; SnapshotVars keys</text><rect class="s-cell-cop" x="524" y="204" width="78" height="20" rx="2"></rect><text class="s-lbl s-cop" x="563" y="218" text-anchor="middle">MERGED</text>
+                            <text class="s-lbl" x="40" y="250">#296</text><text class="s-sub" x="100" y="250">storage &middot; close on failed commit</text><rect class="s-cell-cop" x="524" y="236" width="78" height="20" rx="2"></rect><text class="s-lbl s-cop" x="563" y="250" text-anchor="middle">MERGED</text>
+                            <text class="s-lbl" x="40" y="282">#291</text><text class="s-sub" x="100" y="282">runtime &middot; cancellation escape</text><rect class="s-cell" x="524" y="268" width="78" height="20" rx="2"></rect><text class="s-lbl" x="563" y="282" text-anchor="middle">OPEN</text>
+                            <text class="s-lbl" x="40" y="314">#297</text><text class="s-sub" x="100" y="314">memory &middot; per-hop decay</text><rect class="s-cell" x="524" y="300" width="78" height="20" rx="2"></rect><text class="s-lbl" x="563" y="314" text-anchor="middle">OPEN</text>
+
+                            <text class="s-lbl" x="24" y="380">NVIDIA-NEMO / LABS-OO-AGENTS</text>
+                            <text class="s-lbl s-cop" x="616" y="380" text-anchor="end">EVERY FIX SHIPS WITH A TEST</text>
+                        </svg>
+                        <span class="hp-tag mono">[ UPSTREAM_PR ]</span>
+                        <div class="hp-detail">
+                            <p>Upstream fixes to NVIDIA&rsquo;s object-oriented agent framework: closing storage connections when a commit fails, tolerating a malformed MCP token cache, decoding subprocess output safely, and writing trajectory JSON as UTF-8 so it works on Windows. Each one lands with a regression test.</p>
+                            <div class="hp-chips">
+                                <span class="chip mono">Python</span><span class="chip mono">asyncio</span><span class="chip mono">SQLite</span><span class="chip mono">MCP</span><span class="chip mono">Cross-platform encoding</span><span class="chip mono">pytest</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hp-cap">
+                        <div class="hp-cap-text">
+                            <span class="hp-kicker mono">OPEN SOURCE &middot; NVIDIA NEMO</span>
+                            <h3 class="hp-title">NeMo labs-OO-Agents contributions</h3>
+                            <span class="hp-metric mono"><span id="nemoMetric">6 merged &middot; 7 open upstream PRs</span> &middot; storage, runtime, MCP</span>
+                        </div>
+                        <a class="hp-link" href="https://github.com/NVIDIA-NeMo/labs-OO-Agents/pulls?q=is%3Apr+author%3Asushant-mishra-dtu" target="_blank" rel="noopener" aria-label="NeMo labs-OO-Agents contributions on GitHub">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- CoworkAI (upstream contributor) -->
+                <article class="hp-card" data-hp>
+                    <div class="hp-frame hp-frame--schematic">
+                        <svg class="hp-svg" viewBox="0 0 640 400" role="img" aria-labelledby="svgt-cowork">
+                            <title id="svgt-cowork">Schematic: one React frontend fans out to two microservices, a Core Platform for chat, retrieval, tools and agents, and an LLM Configurator for routing, limits and guardrails, both reaching providers through LiteLLM</title>
+                            <rect class="s-blk" x="24" y="24" width="592" height="46" rx="3"></rect>
+                            <text class="s-txt" x="40" y="48">REACT + VITE</text>
+                            <text class="s-sub" x="600" y="53" text-anchor="end">one frontend</text>
+                            <path class="s-wire" d="M172 70 V94"></path><path class="s-arrow" d="M167 94 l5 8 5 -8 z"></path>
+                            <path class="s-wire" d="M468 70 V94"></path><path class="s-arrow" d="M463 94 l5 8 5 -8 z"></path>
+
+                            <rect class="s-blk-hi" x="24" y="104" width="296" height="188" rx="3"></rect>
+                            <text class="s-txt s-cop" x="40" y="130">CORE PLATFORM</text>
+                            <text class="s-lbl s-cop" x="304" y="130" text-anchor="end">:8000</text>
+                            <text class="s-sub" x="40" y="160">team chat &middot; documents</text>
+                            <text class="s-sub" x="40" y="184">RAG &middot; ChromaDB</text>
+                            <text class="s-sub" x="40" y="208">MCP tools</text>
+                            <text class="s-sub" x="40" y="232">A2A agents</text>
+                            <text class="s-sub" x="40" y="256">JWT &middot; team budgets</text>
+
+                            <rect class="s-blk" x="344" y="104" width="272" height="188" rx="3"></rect>
+                            <text class="s-txt" x="360" y="130">LLM CONFIG</text>
+                            <text class="s-lbl" x="600" y="130" text-anchor="end">:8001</text>
+                            <text class="s-sub" x="360" y="160">model routing</text>
+                            <text class="s-sub" x="360" y="184">fallback chains</text>
+                            <text class="s-sub" x="360" y="208">TPM / RPM limits</text>
+                            <text class="s-sub" x="360" y="232">PII guardrail</text>
+                            <text class="s-sub" x="360" y="256">usage analytics</text>
+
+                            <path class="s-wire" d="M172 292 V318 H248"></path><path class="s-arrow" d="M248 313 l8 5 -8 5 z"></path>
+                            <path class="s-wire" d="M480 292 V318 H392"></path><path class="s-arrow" d="M392 313 l-8 5 8 5 z"></path>
+                            <rect class="s-blk" x="256" y="304" width="128" height="30" rx="3"></rect>
+                            <text class="s-sub" x="320" y="324" text-anchor="middle">LITELLM</text>
+                            <path class="s-wire" d="M320 334 V352"></path><path class="s-arrow" d="M315 352 l5 8 5 -8 z"></path>
+
+                            <text class="s-lbl" x="24" y="380">TWO SERVICES &middot; ONE FRONTEND</text>
+                            <text class="s-lbl s-cop" x="616" y="380" text-anchor="end">PROVIDERS</text>
+                        </svg>
+                        <span class="hp-tag mono">[ DUAL_SVC ]</span>
+                        <div class="hp-detail">
+                            <p>An enterprise AI platform split into two services: a Core Platform for document-grounded team chat, agent-to-agent calls and MCP tools, and an LLM Configurator that routes models, enforces rate limits and PII guardrails. Built end to end with Sampoorn Nagpal &mdash; both services, retrieval, model routing and the React frontend.</p>
+                            <div class="hp-chips">
+                                <span class="chip mono">FastAPI</span><span class="chip mono">LiteLLM</span><span class="chip mono">ChromaDB</span><span class="chip mono">React + Vite</span><span class="chip mono">JWT</span><span class="chip mono">MCP</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hp-cap">
+                        <div class="hp-cap-text">
+                            <span class="hp-kicker mono">OPEN SOURCE &middot; ENTERPRISE AI &middot; CO-BUILT</span>
+                            <h3 class="hp-title">CoworkAI enterprise AI platform</h3>
+                            <span class="hp-metric mono">Two microservices &middot; RAG + A2A agents &middot; model router</span>
+                        </div>
+                        <a class="hp-link" href="https://github.com/Sampoornnagpal/coworkAI" target="_blank" rel="noopener" aria-label="CoworkAI enterprise AI platform on GitHub">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
                         </a>
                     </div>

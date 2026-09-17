@@ -84,6 +84,16 @@
             var wrap = document.getElementById('ghLangs');
             if (wrap) wrap.innerHTML = '<span class="gh-lang mono">github · offline</span>';
         });
+
+        // Upstream PR tally on the NeMo card. Static text in the markup is the
+        // fallback; this only overwrites it when both searches succeed.
+        var nemo = document.getElementById('nemoMetric');
+        if (nemo) {
+            var q = 'https://api.github.com/search/issues?q=author:' + USER + '+type:pr+repo:NVIDIA-NeMo/labs-OO-Agents';
+            Promise.all([fetch(q + '+is:merged').then(ok), fetch(q + '+is:open').then(ok)]).then(function (r) {
+                nemo.textContent = r[0].total_count + ' merged · ' + r[1].total_count + ' open upstream PRs';
+            }).catch(function () {});
+        }
     })();
 
     /* ================= MENU OVERLAY + NAV ================= */
@@ -240,6 +250,7 @@
             tl.fromTo('.hp-row-a', { x: 0 }, { x: 170, ease: 'none', duration: 1 }, 0);
             tl.fromTo('.hp-row-b', { x: 0 }, { x: -170, ease: 'none', duration: 1 }, 0);
             tl.fromTo('.hp-row-c', { x: 0 }, { x: 110, ease: 'none', duration: 1 }, 0);
+            tl.fromTo('.hp-row-d', { x: 0 }, { x: -130, ease: 'none', duration: 1 }, 0);
             return function () { hp.classList.remove('hp-active'); };
         });
 
