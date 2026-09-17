@@ -392,6 +392,38 @@ body.menu-open .menu-list a { transform: translateY(0); transition: transform 0.
 .hp-link svg { width: 15px; height: 15px; }
 .hp-link:hover { border-color: var(--copper); background: var(--copper-soft); color: var(--copper); transform: translate(2px, -2px); }
 
+/* --- Schematic frames: projects with no photograph get a drawn one --- */
+.hp-frame--schematic { background: radial-gradient(120% 100% at 50% 0%, #17171C 0%, var(--panel-2) 58%, #0B0B0E 100%); }
+.hp-svg { width: 100%; height: 100%; display: block; }
+.hp-svg text { letter-spacing: 0.02em; }
+.hp-svg .s-blk { fill: #0E0E10; stroke: #322B22; stroke-width: 1.2; }
+.hp-svg .s-blk-hi { fill: rgba(232, 134, 46, 0.09); stroke: var(--copper); stroke-width: 1.3; }
+.hp-svg .s-panel { fill: rgba(237, 237, 232, 0.018); stroke: #241F19; stroke-width: 1.1; }
+.hp-svg .s-panel-dash { fill: none; stroke: #3A342B; stroke-dasharray: 5 5; }
+.hp-svg .s-cell { fill: #0D0D10; stroke: #241F19; stroke-width: 1; }
+.hp-svg .s-cell-on { fill: rgba(237, 237, 232, 0.12); stroke: #4A4238; stroke-width: 1; }
+.hp-svg .s-cell-cop { fill: rgba(232, 134, 46, 0.20); stroke: var(--copper); stroke-width: 1; }
+.hp-svg .s-glyph { fill: none; stroke: #4A4238; stroke-width: 1.4; }
+.hp-svg .s-wire { fill: none; stroke: #3A342B; stroke-width: 1.3; }
+.hp-svg .s-cop-stroke { stroke: rgba(232, 134, 46, 0.55); }
+.hp-svg .s-dash { stroke-dasharray: 4 5; }
+.hp-svg .s-arrow { fill: #4A4238; stroke: none; }
+.hp-svg .s-trace { fill: none; stroke: #55524B; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
+.hp-svg .s-trace-hi { stroke: var(--copper); stroke-width: 2; }
+.hp-svg .s-lock { fill: none; stroke: #4A4238; stroke-width: 1.2; }
+.hp-svg .s-txt { font-family: var(--mono); font-size: 18px; fill: var(--bone); }
+.hp-svg .s-sub { font-family: var(--mono); font-size: 14px; fill: var(--bone-dim); }
+.hp-svg .s-lbl { font-family: var(--mono); font-size: 12.5px; fill: var(--bone-faint); letter-spacing: 0.1em; }
+.hp-svg .s-cop { fill: var(--copper); }
+
+/* --- Corner status flag: build state / live deployment --- */
+.hp-flag { position: absolute; top: 12px; right: 12px; z-index: 2; }
+.hp-status { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: 0.1em; padding: 4px 8px; border-radius: var(--r); border: 1px solid var(--line-2); background: rgba(5, 5, 5, 0.72); color: var(--bone-dim); }
+.hp-status--wip { color: var(--copper-lite); border-color: rgba(232, 134, 46, 0.34); }
+.hp-status--live { color: var(--phosphor); border-color: rgba(116, 232, 150, 0.32); transition: background 0.3s var(--ease), border-color 0.3s var(--ease); }
+.hp-status--live:hover { color: var(--phosphor); background: var(--phosphor-soft); border-color: var(--phosphor); }
+.hp-status .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--phosphor); box-shadow: 0 0 8px var(--phosphor); animation: pulse 2.4s var(--ease) infinite; flex-shrink: 0; }
+
 /* =============== TIMELINE (dossier log) =============== */
 .timeline { position: relative; padding-left: 40px; }
 .timeline-line { position: absolute; left: 5px; top: 8px; width: 2px; height: calc(100% - 16px); }
@@ -578,6 +610,7 @@ body.menu-open .menu-list a { transform: translateY(0); transition: transform 0.
   .hp-row, .hp-active .hp-row { flex-direction: column; flex-wrap: nowrap; width: 100%; max-width: none; margin: 0; padding: 0 24px; gap: 20px; }
   .hp-card, .hp-card--flagship { width: 100%; transform: none !important; }
   .hp-frame, .hp-card--flagship .hp-frame { aspect-ratio: 4 / 3; }
+  .hp-frame--schematic { aspect-ratio: 16 / 10; }
 
   .hero-title { font-size: clamp(56px, 19vw, 120px); }
   .line-inner.outline { -webkit-text-stroke-width: 1.4px; }
@@ -603,7 +636,7 @@ body.menu-open .menu-list a { transform: translateY(0); transition: transform 0.
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
   #preloader { display: none !important; }
-  .wave-move, .marquee-track, .nav-status .dot, .pre-crosshair { animation: none !important; }
+  .wave-move, .marquee-track, .nav-status .dot, .hp-status .dot, .pre-crosshair { animation: none !important; }
   .hp-plane { transform: none !important; }
   .menu-list a { transform: none; }
   .manifesto-text .word { color: var(--bone); }
