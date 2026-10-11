@@ -463,6 +463,29 @@ body.menu-open .menu-list a { transform: translateY(0); transition: transform 0.
 .skill-chip { font-size: 12.5px; color: var(--bone); background: rgba(5,5,5,0.45); border: 1px solid var(--line); border-radius: var(--r); padding: 8px 13px; transition: border-color 0.25s var(--ease), color 0.25s var(--ease); }
 .skill-chip:hover { border-color: var(--copper); color: var(--copper); }
 
+/* =============== ON THE BENCH (hairline figures) =============== */
+.bench {
+  margin-top: clamp(64px, 9vh, 110px);
+  /* the kernel's palette, in dossier colours: plates fill with the panel, copper is the one highlight */
+  --hairline-plate: var(--panel); --hairline-hi: var(--copper);
+  --hairline-edge: #6E685F; --hairline-mid: #3F382F; --hairline-lo: #2A241C;
+}
+.bench-head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 40px; margin-bottom: 28px; padding-top: 28px; border-top: 1px solid var(--line); }
+.bench-title { font-family: var(--disp); font-weight: 400; text-transform: uppercase; font-size: clamp(30px, 4.4vw, 54px); line-height: 0.95; letter-spacing: 0.01em; }
+.bench-lead { color: var(--bone-dim); font-size: 15px; max-width: 360px; line-height: 1.6; }
+.bench-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.bench-plate {
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg);
+  padding: 16px 16px 22px; transition: border-color 0.3s var(--ease);
+}
+.bench-plate:hover { border-color: var(--line-2); }
+.bench-bar { display: flex; justify-content: space-between; gap: 12px; font-size: 10.5px; letter-spacing: 0.1em; color: var(--bone-faint); }
+.bench-read { color: var(--phosphor); font-variant-numeric: tabular-nums; letter-spacing: 0.04em; white-space: nowrap; }
+.bench-stage { margin: 6px -4px 14px; cursor: crosshair; }
+.bench-plate figcaption { padding: 0 6px; }
+.bench-plate h4 { font-size: 16px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 6px; }
+.bench-plate p { font-size: 13.5px; color: var(--bone-dim); line-height: 1.55; }
+
 /* marquee */
 .marquee { margin-top: clamp(70px, 10vh, 120px); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 22px 0; overflow: hidden; white-space: nowrap; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
 .marquee-track { display: inline-flex; align-items: center; gap: 26px; animation: marq 34s linear infinite; will-change: transform; }
@@ -596,6 +619,8 @@ body.menu-open .menu-list a { transform: translateY(0); transition: transform 0.
   .contact-grid { grid-template-columns: 1fr; gap: 44px; }
   .matrix { grid-template-columns: 1fr; }
   .cap-lead { grid-row: auto; }
+  .bench-head { grid-template-columns: 1fr; gap: 14px; }
+  .bench-grid { grid-template-columns: 1fr; max-width: 520px; }
 }
 @media (max-width: 768px) {
   .nav { top: 12px; }

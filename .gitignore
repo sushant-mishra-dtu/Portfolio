@@ -1,0 +1,3 @@
+# hairline: look sheets and built bench pages (rebuild with the hairline-create skill)
+hairline/*.png
+hairline/hairline-*.html

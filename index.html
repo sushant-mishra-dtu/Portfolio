@@ -1052,6 +1052,55 @@
                 </div>
             </article>
         </div>
+
+        <!-- On the bench: three line drawings that answer the pointer (hairline/) -->
+        <div class="bench" aria-labelledby="benchTitle">
+            <div class="bench-head">
+                <div>
+                    <span class="eyebrow mono">BENCH // 04.1</span>
+                    <h3 class="bench-title" id="benchTitle">On the bench</h3>
+                </div>
+                <p class="bench-lead">Three instruments from the work above, drawn in single line. Bring the pointer to one and it answers.</p>
+            </div>
+
+            <div class="bench-grid">
+                <figure class="bench-plate" data-bench>
+                    <div class="bench-bar mono">
+                        <span>SPEC_01 · WAFER</span>
+                        <span class="bench-read" data-read>rest</span>
+                    </div>
+                    <div class="bench-stage" data-figure="wafer"></div>
+                    <figcaption>
+                        <h4>Diced wafer</h4>
+                        <p>Pick a die. The ejector pushes it up out of the wafer, and the tape lifts its neighbours less the farther they sit.</p>
+                    </figcaption>
+                </figure>
+
+                <figure class="bench-plate" data-bench>
+                    <div class="bench-bar mono">
+                        <span>SPEC_02 · FABRIC</span>
+                        <span class="bench-read" data-read>rest</span>
+                    </div>
+                    <div class="bench-stage" data-figure="fabric"></div>
+                    <figcaption>
+                        <h4>FPGA fabric</h4>
+                        <p>An FPGA with its lid off. The pointer claims a square region of logic tiles, the way a placement block fills.</p>
+                    </figcaption>
+                </figure>
+
+                <figure class="bench-plate" data-bench>
+                    <div class="bench-bar mono">
+                        <span>SPEC_03 · UART</span>
+                        <span class="bench-read" data-read>rest</span>
+                    </div>
+                    <div class="bench-stage" data-figure="bitstream"></div>
+                    <figcaption>
+                        <h4>UART bitstream</h4>
+                        <p>Serial frames ride a trace into the receive pin. Hover the line to slow it down and read a byte off it.</p>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
     </div>
 
     <div class="marquee" aria-hidden="true">
@@ -1162,6 +1211,10 @@
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="hairline/kernel.js"></script>
 <script src="sushant-portfolio.js"></script>
+<script type="module" src="hairline/wafer.js"></script>
+<script type="module" src="hairline/fabric.js"></script>
+<script type="module" src="hairline/bitstream.js"></script>
 </body>
 </html>

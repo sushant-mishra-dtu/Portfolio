@@ -7,6 +7,32 @@
     var hasGsap = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
     if (hasGsap) gsap.registerPlugin(ScrollTrigger);
 
+    /* ================= ON THE BENCH (hairline figures) ================= */
+    // Each figure in hairline/ ends with hairline({ name, means, range, tour, mount }).
+    // This mounts it into its [data-figure] stage the way the hairline bench does,
+    // sends its read-out to the plate's [data-read], and lets its tour play: an
+    // unseen pointer that sleeps offscreen and gives way to a real one.
+    // Defined synchronously so it exists before the deferred figure modules run.
+    window.hairline = function (figure) {
+        var stage = document.querySelector('[data-figure="' + figure.name + '"]');
+        if (!stage || typeof HL === 'undefined' || stage.hasAttribute('data-hairline')) return;
+        var plate = stage.closest('[data-bench]');
+        var out = plate && plate.querySelector('[data-read]');
+        HL.inject(document);
+        stage.setAttribute('data-hairline', figure.name);
+        stage.setAttribute('role', 'img');
+        stage.setAttribute('aria-label', figure.means);
+        var svg = HL.mk('svg', { viewBox: '0 0 400 320', 'aria-hidden': 'true' }, stage);
+        var text = null;
+        var read = {
+            get textContent() { return text; },
+            set textContent(v) { text = v == null ? '' : String(v); if (out) out.textContent = text; }
+        };
+        figure.mount({ stage: stage, svg: svg, read: read }, figure.range[1]);
+        if (text === null) read.textContent = 'rest';
+        HL.tour(stage, figure.tour || HL.LAP);
+    };
+
     /* ================= LIVE CLOCK (Ghaziabad / IST) ================= */
     (function clock() {
         var els = document.querySelectorAll('[data-clock]');
@@ -291,6 +317,16 @@
                 }
             });
         });
+
+        // bench plates: rise in one after another
+        var plates = gsap.utils.toArray('.bench-plate');
+        if (plates.length) {
+            gsap.set(plates, { opacity: 0, y: 28 });
+            ScrollTrigger.create({
+                trigger: '.bench-grid', start: 'top 85%', once: true,
+                onEnter: function () { gsap.to(plates, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.1 }); }
+            });
+        }
 
         window.addEventListener('load', function () { ScrollTrigger.refresh(); });
     }

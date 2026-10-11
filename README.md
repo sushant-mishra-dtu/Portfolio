@@ -10,6 +10,7 @@ A single-page portfolio for an electrical engineering student building hardware 
 - **Subject Profile** with a mono spec sheet, a **live GitHub signal** (repos, followers, stars, last push, top languages via the public API), and a commendations record.
 - **Pinned word-by-word manifesto**, a **twelve-card project cascade** across four counter-drifting rows, and an SVG line-draw **timeline**.
 - Projects with no photograph get a **hand-drawn inline SVG schematic** of their actual architecture (VRF bank placement, InEKF navigation pipeline, LSTM-autoencoder telemetry pipeline, evidence fusion, audio mux, ML pipeline, gated roadmap, upstream PR ledger, dual-microservice topology) rather than a stock placeholder.
+- **On the bench**: three isometric line drawings that answer the pointer, built on the [Hairline](https://lucasmarkes.com/lab/hairline) kernel: a diced wafer whose dies lift out under the pointer, an FPGA whose logic tiles rise in a placement region, and a UART line whose serial frames slow down so a byte can be read.
 - Corner **status flags** on cards that need them: build state (`PLANNING PHASE`) and live deployments (`LIVE`).
 - **Live IST clock** (`GHAZIABAD, IN`) and an oscilloscope waveform as ambient live data.
 - **Floating pill nav** with a fullscreen menu overlay (hamburger morphs to X).
@@ -28,6 +29,7 @@ A single-page portfolio for an electrical engineering student building hardware 
 - `index.html` — page structure and content
 - `sushant-portfolio.css` — all styling (design tokens, layout, motion states, grain overlay)
 - `sushant-portfolio.js` — preloader, nav, GSAP choreography, live clock, GitHub signal, contact pipeline
+- `hairline/` — the bench figures (`wafer.js`, `fabric.js`, `bitstream.js`) and the unmodified Hairline `kernel.js` they draw with
 - `404.html` — branded not-found page
 - `robots.txt`, `sitemap.xml` — SEO
 - Image assets + `CV_Sushant.pdf`
